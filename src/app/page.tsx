@@ -45,8 +45,8 @@ const useInView = <T extends HTMLElement>(ref: React.RefObject<T | null>) => {
 
 const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 50 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: { duration: 0.8, ease: "easeOut" }
   }
@@ -54,9 +54,9 @@ const sectionVariants: Variants = {
 
 const Section = ({ children, id }: { children: React.ReactNode, id: string }) => {
     const ref = useRef<HTMLDivElement | null>(null);
-    const [, controls] = useInView(ref); 
+    const [, controls] = useInView(ref);
     return (
-        <motion.section 
+        <motion.section
             id={id}
             ref={ref}
             className="py-24"
@@ -74,27 +74,36 @@ const Section = ({ children, id }: { children: React.ReactNode, id: string }) =>
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
+    const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, id: string) => {
+        e.preventDefault();
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+        setIsOpen(false);
+    };
+
     const mobileMenuVariants = {
         hidden: { opacity: 0, y: -20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.3 } }
     };
 
     return (
-        <motion.header 
+        <motion.header
             className="fixed top-0 left-0 right-0 z-40 bg-black/50 backdrop-blur-sm"
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
         >
             <div className="container mx-auto px-6 py-4 flex justify-between items-center text-gray-300">
-                <a href="#" className="font-bold text-lg tracking-wider hover:text-white transition-colors">PV ABHIRAM</a>
-                
+                <a href="#hero" onClick={(e) => handleScroll(e, 'hero')} className="font-bold text-lg tracking-wider hover:text-white transition-colors">PV ABHIRAM</a>
+
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex space-x-8">
-                    <a href="#projects" className="hover:text-white transition-colors">Projects</a>
-                    <a href="#timeline" className="hover:text-white transition-colors">Timeline</a>
-                    <a href="#about" className="hover:text-white transition-colors">About</a>
-                    <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+                    <a href="#projects" onClick={(e) => handleScroll(e, 'projects')} className="hover:text-white transition-colors">Projects</a>
+                    <a href="#timeline" onClick={(e) => handleScroll(e, 'timeline')} className="hover:text-white transition-colors">Timeline</a>
+                    <a href="#about" onClick={(e) => handleScroll(e, 'about')} className="hover:text-white transition-colors">About</a>
+                    <a href="#contact" onClick={(e) => handleScroll(e, 'contact')} className="hover:text-white transition-colors">Contact</a>
                 </nav>
 
                 {/* Mobile Menu Button */}
@@ -104,11 +113,11 @@ const Navbar = () => {
                     </button>
                 </div>
             </div>
-            
+
             {/* Mobile Navigation */}
             <AnimatePresence>
                 {isOpen && (
-                    <motion.nav 
+                    <motion.nav
                         className="md:hidden bg-black/70 backdrop-blur-md"
                         initial="hidden"
                         animate="visible"
@@ -116,10 +125,10 @@ const Navbar = () => {
                         variants={mobileMenuVariants}
                     >
                         <div className="flex flex-col items-center space-y-4 py-4">
-                            <a href="#projects" className="hover:text-white transition-colors" onClick={() => setIsOpen(false)}>Projects</a>
-                            <a href="#timeline" className="hover:text-white transition-colors" onClick={() => setIsOpen(false)}>Timeline</a>
-                            <a href="#about" className="hover:text-white transition-colors" onClick={() => setIsOpen(false)}>About</a>
-                            <a href="#contact" className="hover:text-white transition-colors" onClick={() => setIsOpen(false)}>Contact</a>
+                            <a href="#projects" onClick={(e) => handleScroll(e, 'projects')} className="hover:text-white transition-colors">Projects</a>
+                            <a href="#timeline" onClick={(e) => handleScroll(e, 'timeline')} className="hover:text-white transition-colors">Timeline</a>
+                            <a href="#about" onClick={(e) => handleScroll(e, 'about')} className="hover:text-white transition-colors">About</a>
+                            <a href="#contact" onClick={(e) => handleScroll(e, 'contact')} className="hover:text-white transition-colors">Contact</a>
                         </div>
                     </motion.nav>
                 )}
@@ -129,8 +138,8 @@ const Navbar = () => {
 };
 
 const Hero = () => (
-  <section className="relative min-h-screen flex items-center justify-center py-20 md:py-0 overflow-hidden">
-    
+  <section id="hero" className="relative min-h-screen flex items-center justify-center py-20 md:py-0 overflow-hidden">
+
     {/* --- Video Background --- */}
     <div className="absolute top-0 left-0 w-full h-full z-0">
       <video
@@ -138,20 +147,17 @@ const Hero = () => (
         loop
         muted
         playsInline
-        src="/bg3_3.mp4"
+        src="/bg3_3.mp4" // You might want to update this video to better match your brand
         className="w-full h-full object-cover brightness-125"
       />
       <div className="absolute inset-0 bg-black/50"></div>
     </div>
-    
+
     {/* --- Hero Content --- */}
     <div className="relative z-10 container mx-auto px-6 text-center">
-      
-      {/* Adjusted max-width for better text flow on most screens */}
+
       <div className="max-w-3xl mx-auto">
         <motion.div
-          // CRITICAL FIX: `whitespace-nowrap` has been REMOVED.
-          // Responsive text sizes will adjust the font, and the text will wrap naturally.
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-100"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -162,7 +168,7 @@ const Hero = () => (
               strings: [
                 "Transforming Data into Intelligence",
                 "Building ML Solutions That Drive Results",
-                "Where Data Science Meets Real-World Impact"
+                "Data Science for Real-World Impact"
               ],
               autoStart: true,
               loop: true,
@@ -176,9 +182,9 @@ const Hero = () => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.9 }}
         >
-          I&apos;m PV Abhiram, a Machine Learning Engineer and Data Consultant who transforms complex data into actionable insights. I help businesses leverage AI to solve real-world problems and drive growth through intelligent automation.
+          I'm PV Abhiram, a Data Analyst and Machine Learning enthusiast passionate about transforming complex data into actionable insights. I help businesses leverage AI to solve real-world problems and drive growth through intelligent automation.
           <br></br> <br></br>
-          I specialize in end-to-end ML solutions - from data preprocessing and model development to deployment and optimization. Whether you need predictive analytics, recommendation systems, or automated decision-making tools, I deliver scalable solutions tailored to your business needs.
+          I specialize in end-to-end ML solutions - from data preprocessing and model development to deployment and optimization. Whether you need predictive analytics, computer vision solutions, or data-driven strategies, I deliver scalable results tailored to your business needs.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -201,10 +207,8 @@ const Hero = () => (
 
 const Projects = () => {
     const projects = [
-        { title: "Neural Style Transfer", description: "AI-powered artistic style transformation using deep learning.", tech: ["TensorFlow", "Python", "React"] },
-        { title: "Sentiment Analysis API", description: "Real-time emotion detection from text using NLP and BERT.", tech: ["BERT", "FastAPI", "Docker"] },
-        { title: "Real-time Object Detection", description: "A computer vision app for object detection and classification.", tech: ["YOLO", "OpenCV", "JavaScript"] },
-        { title: "Generative Art System", description: "Creating unique visual art using Generative Adversarial Networks (GANs).", tech: ["PyTorch", "GANs", "Next.js"] }
+        { title: "RickBot", description: "Engineered an AI-powered Discord chatbot using Microsoft DialoGPT, fine-tuned on dialogues from 3 seasons of Rick and Morty (approximately 5000+ lines). Achieved high character resemblance with 90% of responses matching Rick's signature style and wit.", tech: ["Microsoft DialoGPT", "Python", "Discord.py"] },
+        { title: "Stock Predictor Application", description: "Developed a feature-rich Django-based Tesla stock prediction app utilizing polynomial regression, achieving 95% accuracy in forecasts. Implemented multiple analytical tools and visualizations to enhance user experience and decision-making capabilities.", tech: ["Django", "Python", "Scikit-learn", "Polynomial Regression"] },
     ];
 
     return (
@@ -213,8 +217,8 @@ const Projects = () => {
                 <h2 className="text-3xl font-bold mb-12 text-gray-200">Projects</h2>
                 <div className="space-y-16">
                     {projects.map((project, index) => (
-                        <motion.div 
-                          key={project.title} 
+                        <motion.div
+                          key={project.title}
                           className="group"
                         >
                             <a href="#" className="block">
@@ -242,10 +246,11 @@ const Projects = () => {
 
 const Timeline = () => {
     const timelineEvents = [
-        { year: "2023 - Present", role: "Senior ML Engineer", company: "Innovate AI", description: "Leading the development of a next-generation recommendation engine and mentoring junior engineers." },
-        { year: "2020 - 2023", role: "Machine Learning Engineer", company: "Data Driven Inc.", description: "Designed and deployed several computer vision models for automated quality inspection in manufacturing." },
-        { year: "2018 - 2020", role: "Software Developer", company: "Tech Solutions Co.", description: "Developed full-stack web applications and APIs, gaining a strong foundation in software engineering principles." },
-        { year: "2018", role: "M.S. in Computer Science", company: "University of Technology", description: "Specialized in Artificial Intelligence and Machine Learning, graduating with honors." },
+        { year: "July 2024 - Ongoing", role: "Associate Data Analyst", company: "Novartis Healthcare", description: "Streamlining digital Veeva vault administration for the French medical market and working on CRM activities for the Novartis USA Business using SQL and Excel." },
+        { year: "Jan 2024 - July 2024", role: "Data Science Intern", company: "Vivriti Capital Pvt. Ltd.", description: "Automated analysis of PDF stock statements using Computer Vision, developed an ML-powered KYC solution, and created a Power BI application for data visualization and credit rating." },
+        { year: "Dec 2022 - July 2023", role: "R&D Intern", company: "Samsung R&D Institute India", description: "Designed API systems for Bixby capsule for language auto-detection and translation, and handled the integration of NLLB API. Published a research paper in Cornell University's database - arXiV." },
+        { year: "2020 - 2024", role: "BTech CSE with AI and ML", company: "Vellore Institute of Technology, Chennai", description: "CGPA: 8.78" },
+        { year: "2018 - 2020", role: "12th Grade", company: "FIITJEE Junior College", description: "Percentage: 94.6" },
     ];
 
     return (
@@ -274,7 +279,7 @@ const About = () => (
         <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold mb-8 text-gray-200">About Me</h2>
             <p className="text-gray-400 text-lg max-w-3xl leading-relaxed">
-                I&apos;m a Machine Learning Engineer with a passion for creative development. My expertise lies in building intelligent applications that are not only functional but also intuitive and engaging. I have a strong background in deep learning, natural language processing, and computer vision, and I love bridging the gap between complex algorithms and beautiful user interfaces. I&apos;m always eager to explore new technologies and push the boundaries of what&apos;s possible in the digital realm.
+                I'm a passionate and driven individual with a strong foundation in AI and Machine Learning. My experience spans across data analysis, computer vision, and natural language processing. I enjoy building intelligent applications that are not only functional but also intuitive and engaging. I have a strong background in deep learning, and I love bridging the gap between complex algorithms and real-world applications. I'm always eager to explore new technologies and push the boundaries of what's possible in the digital realm.
             </p>
         </div>
     </Section>
@@ -285,17 +290,17 @@ const Contact = () => (
         <div className="container mx-auto px-6 text-center">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-200 mb-6">Let&apos;s Connect</h2>
             <p className="text-gray-400 text-lg mb-8">Ready to build something amazing together?</p>
-            <a 
-              href="mailto:alex.johnson@example.com"
+            <a
+              href="mailto:abhiramp428@gmail.com"
               className="inline-block text-2xl md:text-3xl font-semibold text-gray-300 hover:text-white transition-colors duration-300 border-b border-gray-600 hover:border-white pb-2"
             >
-              alex.johnson@example.com
+              abhiramp428@gmail.com
             </a>
             <div className="flex justify-center space-x-6 mt-12">
                 {[
-                    { Icon: Github, href: "#" },
-                    { Icon: Linkedin, href: "#" },
-                    { Icon: Mail, href: "mailto:alex.johnson@example.com" }
+                    { Icon: Github, href: "#" }, // Add your GitHub link here
+                    { Icon: Linkedin, href: "#" }, // Add your LinkedIn link here
+                    { Icon: Mail, href: "mailto:abhiramp428@gmail.com" }
                 ].map(({ Icon, href }, index) => (
                     <a key={index} href={href} className="text-gray-500 hover:text-white transition-colors duration-300">
                         <Icon size={24} />
@@ -308,7 +313,7 @@ const Contact = () => (
 
 const Footer = () => (
     <footer className="text-center py-8 text-gray-600 text-sm">
-        <p>&copy; 2025 Alex Johnson. Inspired by Julien Heuer.</p>
+        <p>&copy; 2025 PV Abhiram.</p>
     </footer>
 );
 
