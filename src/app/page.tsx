@@ -1,17 +1,16 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react';
-import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { motion, useAnimation, AnimatePresence, Variants } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowUpRight, Menu, X } from 'lucide-react';
 import Typewriter from 'typewriter-effect';
 
 import ImmersiveHomepage from '../components/ImmersiveHomepage'; // Adjust the import path as needed
 
-
-
 // =========== UTILITY HOOKS ===========
 
-const useInView = (ref: React.RefObject<HTMLElement>) => {
+// Fixed hook with proper ref handling
+const useInView = <T extends HTMLElement>(ref: React.RefObject<T | null>) => {
     const [isInView, setIsInView] = useState(false);
     const controls = useAnimation();
 
@@ -26,34 +25,36 @@ const useInView = (ref: React.RefObject<HTMLElement>) => {
             { threshold: 0.1 }
         );
 
-        if (ref.current) {
-            observer.observe(ref.current);
+        // Copy ref.current to avoid stale closure
+        const currentRef = ref.current;
+        if (currentRef) {
+            observer.observe(currentRef);
         }
 
         return () => {
-            if (ref.current) {
-                observer.unobserve(ref.current);
+            if (currentRef) {
+                observer.unobserve(currentRef);
             }
         };
     }, [ref, controls]);
 
-    return [isInView, controls];
+    return [isInView, controls] as const;
 };
 
 // =========== STYLED COMPONENTS & ANIMATIONS ===========
 
-const sectionVariants = {
+const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 50 },
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.8, ease: 'easeOut' }
+    transition: { duration: 0.8, ease: "easeOut" }
   }
 };
 
 const Section = ({ children, id }: { children: React.ReactNode, id: string }) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const [, controls] = useInView(ref);
+    const ref = useRef<HTMLDivElement | null>(null);
+    const [, controls] = useInView(ref); 
     return (
         <motion.section 
             id={id}
@@ -66,67 +67,6 @@ const Section = ({ children, id }: { children: React.ReactNode, id: string }) =>
             {children}
         </motion.section>
     );
-};
-
-// =========== UI COMPONENTS ===========
-
-const BackgroundAnimation = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    
-    let particles: { x: number, y: number, vx: number, vy: number }[] = [];
-    
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      
-      particles = [];
-      const particleCount = Math.floor((canvas.width * canvas.height) / 20000);
-      for(let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.1,
-          vy: (Math.random() - 0.5) * 0.1,
-        });
-      }
-    };
-    resizeCanvas();
-
-    let animationFrameId: number;
-    const render = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'rgba(200, 200, 200, 0.3)';
-      
-      particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 1, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      animationFrameId = window.requestAnimationFrame(render);
-    };
-    render();
-
-    window.addEventListener('resize', resizeCanvas);
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      window.cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-10" />;
 };
 
 // =========== PAGE SECTIONS ===========
@@ -236,7 +176,7 @@ const Hero = () => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.9 }}
         >
-          I'm PV Abhiram, a Machine Learning Engineer and Data Consultant who transforms complex data into actionable insights. I help businesses leverage AI to solve real-world problems and drive growth through intelligent automation.
+          I&apos;m PV Abhiram, a Machine Learning Engineer and Data Consultant who transforms complex data into actionable insights. I help businesses leverage AI to solve real-world problems and drive growth through intelligent automation.
           <br></br> <br></br>
           I specialize in end-to-end ML solutions - from data preprocessing and model development to deployment and optimization. Whether you need predictive analytics, recommendation systems, or automated decision-making tools, I deliver scalable solutions tailored to your business needs.
         </motion.p>
@@ -250,7 +190,7 @@ const Hero = () => (
             href="#contact"
             className="inline-block bg-gray-700 text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-600 transition-colors"
           >
-            Let's Discuss Your Project
+            Let&apos;s Discuss Your Project
           </a>
         </motion.div>
       </div>
@@ -258,7 +198,6 @@ const Hero = () => (
     </div>
   </section>
 );
-
 
 const Projects = () => {
     const projects = [
@@ -335,7 +274,7 @@ const About = () => (
         <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold mb-8 text-gray-200">About Me</h2>
             <p className="text-gray-400 text-lg max-w-3xl leading-relaxed">
-                I'm a Machine Learning Engineer with a passion for creative development. My expertise lies in building intelligent applications that are not only functional but also intuitive and engaging. I have a strong background in deep learning, natural language processing, and computer vision, and I love bridging the gap between complex algorithms and beautiful user interfaces. I'm always eager to explore new technologies and push the boundaries of what's possible in the digital realm.
+                I&apos;m a Machine Learning Engineer with a passion for creative development. My expertise lies in building intelligent applications that are not only functional but also intuitive and engaging. I have a strong background in deep learning, natural language processing, and computer vision, and I love bridging the gap between complex algorithms and beautiful user interfaces. I&apos;m always eager to explore new technologies and push the boundaries of what&apos;s possible in the digital realm.
             </p>
         </div>
     </Section>
@@ -344,7 +283,7 @@ const About = () => (
 const Contact = () => (
     <Section id="contact">
         <div className="container mx-auto px-6 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-200 mb-6">Let's Connect</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-200 mb-6">Let&apos;s Connect</h2>
             <p className="text-gray-400 text-lg mb-8">Ready to build something amazing together?</p>
             <a 
               href="mailto:alex.johnson@example.com"
@@ -373,12 +312,10 @@ const Footer = () => (
     </footer>
 );
 
-
-// =========== MAIN PAGE COMPONENT (MODIFIED) ===========
+// =========== MAIN PAGE COMPONENT ===========
 function PortfolioContent() {
   return (
     <div className="bg-black text-gray-300 min-h-screen">
-        {/* Replace BackgroundAnimation with BackgroundVideo */}        
         <div className="relative z-10">
             <Navbar />
             <main>
@@ -393,6 +330,7 @@ function PortfolioContent() {
     </div>
   );
 }
+
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
