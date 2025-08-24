@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowUpRight, Menu, X } from 'lucide-react';
-import myBrainImage from '@/images/image1.jpg';
+import Typewriter from 'typewriter-effect';
 
 import ImmersiveHomepage from '../components/ImmersiveHomepage'; // Adjust the import path as needed
 
@@ -189,47 +189,56 @@ const Navbar = () => {
 };
 
 const Hero = () => (
-  // The section remains the container. It centers its children vertically and horizontally.
   <section className="relative min-h-screen flex items-center justify-center py-20 md:py-0 overflow-hidden">
     
     {/* --- Video Background --- */}
-    {/* This container holds the video and the dark overlay. */}
     <div className="absolute top-0 left-0 w-full h-full z-0">
       <video
         autoPlay
         loop
         muted
         playsInline
-        src="/bg3_3.mp4" 
-        // CRITICAL FIX: These classes ensure the video covers the entire area responsively.
-        className="w-full h-full object-cover"
+        src="/bg3_3.mp4"
+        className="w-full h-full object-cover brightness-125"
       />
-      {/* Dark overlay for better text readability */}
       <div className="absolute inset-0 bg-black/50"></div>
     </div>
     
     {/* --- Hero Content --- */}
-    {/* This single container holds all the text content. It sits on top of the video background. */}
     <div className="relative z-10 container mx-auto px-6 text-center">
       
-      {/* The image composite has been completely removed for a cleaner layout. */}
-      {/* The text content is now centered and constrained in width for readability. */}
-      <div className="max-w-2xl mx-auto">
-        <motion.h1
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-100"
+      {/* Adjusted max-width for better text flow on most screens */}
+      <div className="max-w-3xl mx-auto">
+        <motion.div
+          // CRITICAL FIX: `whitespace-nowrap` has been REMOVED.
+          // Responsive text sizes will adjust the font, and the text will wrap naturally.
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-100"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          Hello World
-        </motion.h1>
+          <Typewriter
+            options={{
+              strings: [
+                "Transforming Data into Intelligence",
+                "Building ML Solutions That Drive Results",
+                "Where Data Science Meets Real-World Impact"
+              ],
+              autoStart: true,
+              loop: true,
+              deleteSpeed: 50,
+            }}
+          />
+        </motion.div>
         <motion.p
           className="text-gray-400 text-lg md:text-xl mt-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.9 }}
         >
-          I'm a freelance ML Engineer & Consultant Analyst, .
+          I'm PV Abhiram, a Machine Learning Engineer and Data Consultant who transforms complex data into actionable insights. I help businesses leverage AI to solve real-world problems and drive growth through intelligent automation.
+          <br></br> <br></br>
+          I specialize in end-to-end ML solutions - from data preprocessing and model development to deployment and optimization. Whether you need predictive analytics, recommendation systems, or automated decision-making tools, I deliver scalable solutions tailored to your business needs.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -241,7 +250,7 @@ const Hero = () => (
             href="#contact"
             className="inline-block bg-gray-700 text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-600 transition-colors"
           >
-            Contact Me For A Chat
+            Let's Discuss Your Project
           </a>
         </motion.div>
       </div>
