@@ -182,7 +182,7 @@ const Hero = () => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.9 }}
         >
-          I'm PV Abhiram, a Data Analyst and Machine Learning enthusiast passionate about transforming complex data into actionable insights. I help businesses leverage AI to solve real-world problems and drive growth through intelligent automation.
+          I&apos;m PV Abhiram, a Data Analyst and Machine Learning enthusiast passionate about transforming complex data into actionable insights. I help businesses leverage AI to solve real-world problems and drive growth through intelligent automation.
           <br></br> <br></br>
           I specialize in end-to-end ML solutions - from data preprocessing and model development to deployment and optimization. Whether you need predictive analytics, computer vision solutions, or data-driven strategies, I deliver scalable results tailored to your business needs.
         </motion.p>
@@ -214,25 +214,25 @@ const Projects = () => {
     return (
         <Section id="projects">
             <div className="container mx-auto px-6">
-                <h2 className="text-3xl font-bold mb-12 text-gray-200">Projects</h2>
-                <div className="space-y-16">
+                <h2 className="text-4xl md:text-5xl font-bold mb-20 text-gray-200">Projects</h2>
+                <div className="space-y-24 md:space-y-32">
                     {projects.map((project, index) => (
                         <motion.div
                           key={project.title}
                           className="group"
                         >
                             <a href="#" className="block">
-                                <div className="flex justify-between items-center border-b border-gray-700 pb-4">
+                                <div className="flex justify-between items-start border-b border-gray-700 pb-8">
                                     <div>
-                                        <span className="text-gray-500 text-sm">0{index + 1}</span>
-                                        <h3 className="text-2xl md:text-4xl font-bold text-gray-300 group-hover:text-white transition-colors duration-300 mt-2">{project.title}</h3>
+                                        <span className="text-gray-500 text-base">0{index + 1}</span>
+                                        <h3 className="text-2xl md:text-3xl font-bold text-gray-300 group-hover:text-white transition-colors duration-300 mt-2">{project.title}</h3>
                                     </div>
-                                    <ArrowUpRight className="text-gray-500 group-hover:text-white transition-colors duration-300 transform -rotate-45 group-hover:rotate-0" size={32}/>
+                                    <ArrowUpRight className="text-gray-500 group-hover:text-white transition-colors duration-300 transform -rotate-45 group-hover:rotate-0 mt-2 flex-shrink-0" size={40}/>
                                 </div>
-                                <p className="text-gray-400 mt-4 max-w-lg">{project.description}</p>
-                                <div className="flex flex-wrap gap-2 mt-4">
+                                <p className="text-gray-400 text-lg md:text-xl mt-8 max-w-3xl leading-relaxed">{project.description}</p>
+                                <div className="flex flex-wrap gap-3 mt-8">
                                     {project.tech.map(tech => (
-                                        <span key={tech} className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-sm">{tech}</span>
+                                        <span key={tech} className="px-4 py-2 bg-gray-800 text-gray-300 rounded-full text-base">{tech}</span>
                                     ))}
                                 </div>
                             </a>
@@ -279,7 +279,7 @@ const About = () => (
         <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold mb-8 text-gray-200">About Me</h2>
             <p className="text-gray-400 text-lg max-w-3xl leading-relaxed">
-                I'm a passionate and driven individual with a strong foundation in AI and Machine Learning. My experience spans across data analysis, computer vision, and natural language processing. I enjoy building intelligent applications that are not only functional but also intuitive and engaging. I have a strong background in deep learning, and I love bridging the gap between complex algorithms and real-world applications. I'm always eager to explore new technologies and push the boundaries of what's possible in the digital realm.
+                I&apos;m a passionate and driven individual with a strong foundation in AI and Machine Learning. My experience spans across data analysis, computer vision, and natural language processing. I enjoy building intelligent applications that are not only functional but also intuitive and engaging. I have a strong background in deep learning, and I love bridging the gap between complex algorithms and real-world applications. I&apos;m always eager to explore new technologies and push the boundaries of what&apos;s possible in the digital realm.
             </p>
         </div>
     </Section>
@@ -313,7 +313,7 @@ const Contact = () => (
 
 const Footer = () => (
     <footer className="text-center py-8 text-gray-600 text-sm">
-        <p>&copy; 2025 PV Abhiram.</p>
+        <p>&copy; 2025 PV Abhiram. Inspired by Julien Heuer.</p>
     </footer>
 );
 
