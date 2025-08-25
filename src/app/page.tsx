@@ -410,7 +410,7 @@ const Contact = () => (
 
 const Footer = () => (
     <footer className="text-center py-8 text-gray-600 text-sm">
-        <p>&copy; 2025 PV Abhiram. Inspired by Julien Heuer.</p>
+        <p>&copy; 2025 PV Abhiram.</p>
     </footer>
 );
 
