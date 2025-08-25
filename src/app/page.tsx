@@ -305,9 +305,7 @@ const Timeline = () => {
     const timelineEvents = [
         { year: "July 2024 - Ongoing", role: "Associate Data Analyst", company: "Novartis Healthcare", description: "Streamlining digital Veeva vault administration for Novartis France and working on CRM activities and Generative AI projects for Novartis USA." },
         { year: "Jan 2024 - July 2024", role: "Data Science Intern", company: "Vivriti Capital Pvt. Ltd.", description: "Worked on cool projects based on Generative AI , Data Mining , NLP and Computer Vision. Lots of financial knowledge and lessons gained on Project Management." },
-        { year: "Dec 2022 - July 2023", role: "R&D Intern", company: "Samsung R&D Institute India", description: "Designed API systems for Bixby capsule for language auto-detection and translation, and handled the integration of NLLB API. Published a research paper in Cornell University's database - arXiV." },
-        { year: "2020 - 2024", role: "BTech CSE with AI and ML", company: "Vellore Institute of Technology, Chennai", description: "Did my undergraduate at VIT Chennai in the field of AI and worked on innovative projects and won 2 hackathons" },
-        { year: "2018 - 2020", role: "12th Grade", company: "FIITJEE Junior College", description: "Nothing much to say , just studied Math,Physics and Chemistry." },
+        { year: "Dec 2022 - July 2023", role: "R&D Intern", company: "Samsung R&D Institute India", description: "Designed API systems for Bixby capsule for language auto-detection and translation, and handled the integration of NLLB API. Published a research paper in Cornell University's database - arXiV." }
     ];
 
     return (
