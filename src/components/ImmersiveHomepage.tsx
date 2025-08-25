@@ -8,6 +8,7 @@ interface ImmersiveHomepageProps {
   onLoadingComplete: () => void;
 }
 
+
 export default function ImmersiveHomepage({ onLoadingComplete }: ImmersiveHomepageProps) {
   // useMotionValue is a special value from Framer Motion that can be animated
   const count = useMotionValue(0);

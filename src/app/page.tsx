@@ -6,6 +6,7 @@ import { Github, Linkedin, Mail, ArrowUpRight, Menu, X } from 'lucide-react';
 import Typewriter from 'typewriter-effect';
 
 import ImmersiveHomepage from '../components/ImmersiveHomepage'; // Adjust the import path as needed
+import { title } from 'process';
 
 // =========== UTILITY HOOKS ===========
 
@@ -102,7 +103,7 @@ const Navbar = () => {
                 <nav className="hidden md:flex space-x-8">
                     <a href="#projects" onClick={(e) => handleScroll(e, 'projects')} className="hover:text-white transition-colors">Projects</a>
                     <a href="#timeline" onClick={(e) => handleScroll(e, 'timeline')} className="hover:text-white transition-colors">Timeline</a>
-                    <a href="#about" onClick={(e) => handleScroll(e, 'about')} className="hover:text-white transition-colors">About</a>
+                    <a href="#skills" onClick={(e) => handleScroll(e, 'skills')} className="hover:text-white transition-colors">Skills</a>
                     <a href="#contact" onClick={(e) => handleScroll(e, 'contact')} className="hover:text-white transition-colors">Contact</a>
                 </nav>
 
@@ -127,7 +128,7 @@ const Navbar = () => {
                         <div className="flex flex-col items-center space-y-4 py-4">
                             <a href="#projects" onClick={(e) => handleScroll(e, 'projects')} className="hover:text-white transition-colors">Projects</a>
                             <a href="#timeline" onClick={(e) => handleScroll(e, 'timeline')} className="hover:text-white transition-colors">Timeline</a>
-                            <a href="#about" onClick={(e) => handleScroll(e, 'about')} className="hover:text-white transition-colors">About</a>
+                            <a href="#skills" onClick={(e) => handleScroll(e, 'skills')} className="hover:text-white transition-colors">Skills</a>
                             <a href="#contact" onClick={(e) => handleScroll(e, 'contact')} className="hover:text-white transition-colors">Contact</a>
                         </div>
                     </motion.nav>
@@ -182,9 +183,9 @@ const Hero = () => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.9 }}
         >
-          I&apos;m PV Abhiram, a Data Analyst and Machine Learning enthusiast passionate about transforming complex data into actionable insights. I help businesses leverage AI to solve real-world problems and drive growth through intelligent automation.
+          I&apos;m PV Abhiram, a Data Analyst and Machine Learning enthusiast passionate about transforming complex data into actionable insights. I leverage AI to solve real-world problems and drive growth through intelligent automation.
           <br></br> <br></br>
-          I specialize in end-to-end ML solutions - from data preprocessing and model development to deployment and optimization. Whether you need predictive analytics, computer vision solutions, or data-driven strategies, I deliver scalable results tailored to your business needs.
+          I specialize in end-to-end ML solutions - from data preprocessing and model development to deployment and optimization. Whether you need predictive analytics, computer vision solutions, or data-driven strategies, I deliver scalable results tailored to your needs.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -207,36 +208,91 @@ const Hero = () => (
 
 const Projects = () => {
     const projects = [
-        { title: "RickBot", description: "Engineered an AI-powered Discord chatbot using Microsoft DialoGPT, fine-tuned on dialogues from 3 seasons of Rick and Morty (approximately 5000+ lines). Achieved high character resemblance with 90% of responses matching Rick's signature style and wit.", tech: ["Microsoft DialoGPT", "Python", "Discord.py"] },
-        { title: "Stock Predictor Application", description: "Developed a feature-rich Django-based Tesla stock prediction app utilizing polynomial regression, achieving 95% accuracy in forecasts. Implemented multiple analytical tools and visualizations to enhance user experience and decision-making capabilities.", tech: ["Django", "Python", "Scikit-learn", "Polynomial Regression"] },
+        {
+            title: "RickBot",
+            description: "Engineered an AI-powered Discord chatbot using Microsoft DialoGPT, fine-tuned on dialogues from 3 seasons of Rick and Morty (approximately 5000+ lines). Achieved high character resemblance with 90% of responses matching Rick's signature style and wit.",
+            tech: ["Microsoft DialoGPT", "Python", "Discord.py"],
+            link: "https://github.com/Abhiram970/RickBot"
+        },
+        {
+            title: "Stock Predictor Application",
+            description: "Developed a feature-rich Django-based Tesla stock prediction app utilizing polynomial regression, achieving 95% accuracy in forecasts. Implemented multiple analytical tools and visualizations to enhance user experience and decision-making capabilities.",
+            tech: ["Django", "Python", "Scikit-learn", "Polynomial Regression"],
+            link: "https://github.com/Abhiram970/Stock-Predicton-Website"
+        },
+        {
+            title: "Bixby Language Translation Capsule",
+            description: "Designed API systems for a Bixby capsule capable of auto-detecting and translating over 200 languages with 98% accuracy. Handled the integration of the NLLB API, hosted using Docker and Hugging Face. Published a research paper on the findings in Cornell University's arXiV database.",
+            tech: ["Bixby", "NLLB API", "Docker", "Hugging Face"],
+            link: "https://arxiv.org/abs/2403.05982"
+        },
+        {
+            title: "Elevator Conditioning Monitoring",
+            description: "Addressed the challenge of proactive elevator maintenance by developing a condition monitoring system. This system utilizes various sensors to provide real-time insights into elevator health, mitigating unexpected failures, enhancing safety, and optimizing maintenance operations.",
+            tech: ["Sensor Integration", "Real-time Data Processing", "IoT"],
+            link: "https://github.com/Abhiram970/Elevator-Condition-Monitoring"
+        },
+        {
+            title: "KYC Detection Mechanism",
+            description: "Developed a comprehensive automated Know Your Customer (KYC) verification system specifically designed for the Indian market, leveraging advanced computer vision and data matching technologies to streamline customer onboarding processes while ensuring regulatory compliance.",
+            tech: ["Deep Learning","Computer Vision"],
+            link: "#"
+        },
+        {
+            title: "Tracking Field Employee Movement - TFEM",
+            description: "This solution is a employee tracker that currently suggests optimum distance and time required for the employee to travel from source to the destinations. It is developed using Django Framework.",
+            tech: ["Google Map API","Django Framework"],
+            link: "https://github.com/Abhiram970/Ecell_Hackathon"
+        }
     ];
+
+    const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
+        const hasLink = project.link && project.link !== "#";
+        const Wrapper = hasLink ? 'a' : 'div';
+
+        return (
+            <motion.div
+                className="group flex flex-col"
+                variants={sectionVariants}
+            >
+                <Wrapper
+                    href={hasLink ? project.link : undefined}
+                    target={hasLink ? "_blank" : undefined}
+                    rel={hasLink ? "noopener noreferrer" : undefined}
+                    className={`block border border-gray-800 rounded-lg p-6 md:p-8 transition-all duration-300 flex flex-col flex-grow bg-gray-900/30 ${
+                        hasLink
+                            ? 'hover:border-gray-600 hover:bg-gray-900/50 cursor-pointer'
+                            : 'cursor-default'
+                    }`}
+                >
+                    <div className="flex justify-between items-start">
+                        <h3 className={`text-xl md:text-2xl font-bold text-gray-300 transition-colors duration-300 ${hasLink ? 'group-hover:text-white' : ''}`}>
+                            {project.title}
+                        </h3>
+                        {hasLink ? (
+                            <ArrowUpRight className="text-gray-500 group-hover:text-white transition-colors duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1 mt-1 flex-shrink-0" size={28}/>
+                        ) : (
+                            <span className="text-base font-bold text-white-400 text-right mt-1 flex-shrink-0">Link coming soon</span>
+                        )}
+                    </div>
+                    <p className="text-gray-400 text-base my-4 leading-relaxed flex-grow">{project.description}</p>
+                    <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-800">
+                        {project.tech.map(tech => (
+                            <span key={tech} className="px-3 py-1 bg-gray-800 text-gray-400 rounded-full text-xs font-medium">{tech}</span>
+                        ))}
+                    </div>
+                </Wrapper>
+            </motion.div>
+        );
+    };
 
     return (
         <Section id="projects">
             <div className="container mx-auto px-6">
-                <h2 className="text-4xl md:text-5xl font-bold mb-20 text-gray-200">Projects</h2>
-                <div className="space-y-24 md:space-y-32">
-                    {projects.map((project, index) => (
-                        <motion.div
-                          key={project.title}
-                          className="group"
-                        >
-                            <a href="#" className="block">
-                                <div className="flex justify-between items-start border-b border-gray-700 pb-8">
-                                    <div>
-                                        <span className="text-gray-500 text-base">0{index + 1}</span>
-                                        <h3 className="text-2xl md:text-3xl font-bold text-gray-300 group-hover:text-white transition-colors duration-300 mt-2">{project.title}</h3>
-                                    </div>
-                                    <ArrowUpRight className="text-gray-500 group-hover:text-white transition-colors duration-300 transform -rotate-45 group-hover:rotate-0 mt-2 flex-shrink-0" size={40}/>
-                                </div>
-                                <p className="text-gray-400 text-lg md:text-xl mt-8 max-w-3xl leading-relaxed">{project.description}</p>
-                                <div className="flex flex-wrap gap-3 mt-8">
-                                    {project.tech.map(tech => (
-                                        <span key={tech} className="px-4 py-2 bg-gray-800 text-gray-300 rounded-full text-base">{tech}</span>
-                                    ))}
-                                </div>
-                            </a>
-                        </motion.div>
+                <h2 className="text-4xl md:text-5xl font-bold mb-16 text-gray-200">Featured Projects</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    {projects.map((project) => (
+                        <ProjectCard key={project.title} project={project} />
                     ))}
                 </div>
             </div>
@@ -244,22 +300,25 @@ const Projects = () => {
     );
 };
 
+
 const Timeline = () => {
     const timelineEvents = [
-        { year: "July 2024 - Ongoing", role: "Associate Data Analyst", company: "Novartis Healthcare", description: "Streamlining digital Veeva vault administration for the French medical market and working on CRM activities for the Novartis USA Business using SQL and Excel." },
-        { year: "Jan 2024 - July 2024", role: "Data Science Intern", company: "Vivriti Capital Pvt. Ltd.", description: "Automated analysis of PDF stock statements using Computer Vision, developed an ML-powered KYC solution, and created a Power BI application for data visualization and credit rating." },
+        { year: "July 2024 - Ongoing", role: "Associate Data Analyst", company: "Novartis Healthcare", description: "Streamlining digital Veeva vault administration for Novartis France and working on CRM activities and Generative AI projects for Novartis USA." },
+        { year: "Jan 2024 - July 2024", role: "Data Science Intern", company: "Vivriti Capital Pvt. Ltd.", description: "Worked on cool projects based on Generative AI , Data Mining , NLP and Computer Vision. Lots of financial knowledge and lessons gained on Project Management." },
         { year: "Dec 2022 - July 2023", role: "R&D Intern", company: "Samsung R&D Institute India", description: "Designed API systems for Bixby capsule for language auto-detection and translation, and handled the integration of NLLB API. Published a research paper in Cornell University's database - arXiV." },
-        { year: "2020 - 2024", role: "BTech CSE with AI and ML", company: "Vellore Institute of Technology, Chennai", description: "CGPA: 8.78" },
-        { year: "2018 - 2020", role: "12th Grade", company: "FIITJEE Junior College", description: "Percentage: 94.6" },
+        { year: "2020 - 2024", role: "BTech CSE with AI and ML", company: "Vellore Institute of Technology, Chennai", description: "Did my undergraduate at VIT Chennai in the field of AI and worked on innovative projects and won 2 hackathons" },
+        { year: "2018 - 2020", role: "12th Grade", company: "FIITJEE Junior College", description: "Nothing much to say , just studied Math,Physics and Chemistry." },
     ];
 
     return (
         <Section id="timeline">
             <div className="container mx-auto px-6">
                 <h2 className="text-3xl font-bold mb-12 text-gray-200">Timeline</h2>
-                <div className="relative border-l-2 border-gray-700">
+                {/* Added padding-bottom to ensure space for the final dot */}
+                <div className="relative border-l-2 border-gray-700 pb-3">
                     {timelineEvents.map((event, index) => (
                         <div key={index} className="mb-12 ml-6">
+                            {/* This is the original circle style and position */}
                             <span className="absolute flex items-center justify-center w-3 h-3 bg-gray-500 rounded-full -left-1.5 ring-4 ring-gray-800"></span>
                             <h3 className="flex items-center mb-1 text-lg font-semibold text-white">
                                 {event.role} <span className="text-gray-500 font-normal ml-2">@ {event.company}</span>
@@ -268,22 +327,60 @@ const Timeline = () => {
                             <p className="text-base font-normal text-gray-400">{event.description}</p>
                         </div>
                     ))}
+                    {/* Final circle to terminate the timeline */}
+                    <div className="absolute w-3 h-3 bg-gray-500 rounded-full -left-1.5 bottom-0 ring-4 ring-gray-800"></div>
                 </div>
             </div>
         </Section>
     );
 };
 
-const About = () => (
-    <Section id="about">
-        <div className="container mx-auto px-6">
-            <h2 className="text-3xl font-bold mb-8 text-gray-200">About Me</h2>
-            <p className="text-gray-400 text-lg max-w-3xl leading-relaxed">
-                I&apos;m a passionate and driven individual with a strong foundation in AI and Machine Learning. My experience spans across data analysis, computer vision, and natural language processing. I enjoy building intelligent applications that are not only functional but also intuitive and engaging. I have a strong background in deep learning, and I love bridging the gap between complex algorithms and real-world applications. I&apos;m always eager to explore new technologies and push the boundaries of what&apos;s possible in the digital realm.
-            </p>
-        </div>
-    </Section>
-);
+const Skills = () => {
+    const skillCategories = [
+        {
+            title: "Languages",
+            skills: ["C++", "Python", "JavaScript", "HTML5", "CSS"]
+        },
+        {
+            title: "Frameworks & Technologies",
+            skills: ["Node.js", "Django", "Bootstrap", "Tensorflow", "Flask", "PowerBI", "Scikit-learn", "Tableau", "Salesforce", "Snowflake", "Alteryx"]
+        },
+        {
+            title: "Databases",
+            skills: ["MySQL", "PostgreSQL", "DataIKU DSS"]
+        },
+        {
+            title: "Technical Skills",
+            skills: ["DSA", "OOPS", "Networking", "Computer Architecture", "Operating System", "Machine Learning", "Deep Learning"]
+        },
+        {
+            title: "Soft Skills",
+            skills: ["Problem-Solving", "Communication", "Teamwork", "Leadership", "Planning"]
+        }
+    ];
+
+    return (
+        <Section id="skills">
+            <div className="container mx-auto px-6">
+                <h2 className="text-4xl md:text-5xl font-bold mb-16 text-gray-200">Skills & Technologies</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                    {skillCategories.map((category) => (
+                        <div key={category.title}>
+                            <h3 className="text-xl font-bold text-gray-300 mb-4 border-b-2 border-gray-700 pb-2">{category.title}</h3>
+                            <div className="flex flex-wrap gap-3">
+                                {category.skills.map((skill) => (
+                                    <span key={skill} className="px-4 py-2 bg-gray-800 text-gray-300 rounded-full text-base">
+                                        {skill}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </Section>
+    );
+};
 
 const Contact = () => (
     <Section id="contact">
@@ -298,8 +395,8 @@ const Contact = () => (
             </a>
             <div className="flex justify-center space-x-6 mt-12">
                 {[
-                    { Icon: Github, href: "#" }, // Add your GitHub link here
-                    { Icon: Linkedin, href: "#" }, // Add your LinkedIn link here
+                    { Icon: Github, href: "https://github.com/Abhiram970" }, // Add your GitHub link here
+                    { Icon: Linkedin, href: "https://www.linkedin.com/in/pvabhiram/" }, // Add your LinkedIn link here
                     { Icon: Mail, href: "mailto:abhiramp428@gmail.com" }
                 ].map(({ Icon, href }, index) => (
                     <a key={index} href={href} className="text-gray-500 hover:text-white transition-colors duration-300">
@@ -327,7 +424,7 @@ function PortfolioContent() {
                 <Hero />
                 <Projects />
                 <Timeline />
-                <About />
+                <Skills />
                 <Contact />
             </main>
             <Footer />
