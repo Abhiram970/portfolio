@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, useAnimation, AnimatePresence, Variants } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowUpRight, Menu, X } from 'lucide-react';
 import Typewriter from 'typewriter-effect';
+import { Analytics } from "@vercel/analytics/next"
 
 import ImmersiveHomepage from '../components/ImmersiveHomepage'; // Adjust the import path as needed
 import { title } from 'process';
@@ -106,6 +107,8 @@ const Navbar = () => {
                     <a href="#skills" onClick={(e) => handleScroll(e, 'skills')} className="hover:text-white transition-colors">Skills</a>
                     <a href="#contact" onClick={(e) => handleScroll(e, 'contact')} className="hover:text-white transition-colors">Contact</a>
                 </nav>
+
+                <img></img>
 
                 {/* Mobile Menu Button */}
                 <div className="md:hidden">
