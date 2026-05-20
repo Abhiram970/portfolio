@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Portfolio Wireframes — 6 Directions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Kalam:wght@300;400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#faf7f2;
+    --ink:#1a1a1a;
+    --ink-2:#555;
+    --ink-3:#999;
+    --accent:#ffe14a;           /* tweakable */
+    --accent-2:#ff7a59;
+    --rule:#1a1a1a;
+    --sketch-font:'Caveat', cursive;
+    --body-font:'Kalam', cursive;
+    --mono:'JetBrains Mono', monospace;
+    --density: 1;               /* tweakable: 0.85 - 1.2 */
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body-font);}
+  body{min-height:100vh}
+
+  /* Top bar with tabs */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:var(--paper);
+    border-bottom:2px solid var(--ink);
+    padding:10px 18px;
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  }
+  .topbar h1{
+    font-family:var(--sketch-font);
+    font-size:26px;margin:0;letter-spacing:0.5px;white-space:nowrap;
+  }
+  .topbar .sub{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  @media (max-width: 980px){
+    .topbar{flex-direction:column;align-items:flex-start;gap:8px}
+    .topbar .sub{margin-right:0}
+    .tabs{width:100%}
+  }
+  .tabs{display:flex;gap:6px;flex-wrap:wrap}
+  .tab{
+    font-family:var(--mono);font-size:12px;
+    padding:6px 10px;border:1.5px solid var(--ink);
+    background:transparent;color:var(--ink);cursor:pointer;
+    border-radius:2px;
+    transition:transform .08s;
+  }
+  .tab:hover{transform:translate(-1px,-1px);box-shadow:2px 2px 0 var(--ink)}
+  .tab.active{background:var(--ink);color:var(--paper)}
+
+  /* Pages */
+  .page{display:none;padding:28px 40px 80px;max-width:1400px;margin:0 auto}
+  .page.active{display:block}
+  .page-head{
+    display:flex;align-items:baseline;gap:16px;margin-bottom:22px;
+    padding-bottom:10px;border-bottom:2px dashed var(--ink);
+  }
+  .page-head .num{
+    font-family:var(--sketch-font);font-size:44px;line-height:1;color:var(--accent);
+    -webkit-text-stroke:2px var(--ink);
+  }
+  .page-head h2{font-family:var(--sketch-font);font-size:38px;margin:0;font-weight:700}
+  .page-head .tag{font-family:var(--mono);font-size:11px;color:var(--ink-2);background:var(--paper);border:1px dashed var(--ink-2);padding:3px 7px}
+  .page-head .desc{font-family:var(--body-font);font-size:15px;color:var(--ink-2);margin-left:auto;max-width:420px;text-align:right}
+
+  /* Sketch primitives */
+  .box{
+    border:2px solid var(--ink);
+    background:#fff;
+    position:relative;
+    padding:calc(14px * var(--density));
+  }
+  .box.dashed{border-style:dashed}
+  .box.rough{border-radius:6px 18px 4px 20px / 18px 4px 22px 6px}
+  .box.tilt-l{transform:rotate(-0.6deg)}
+  .box.tilt-r{transform:rotate(0.5deg)}
+  .label{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--ink-2);text-transform:uppercase}
+  .scrawl{font-family:var(--sketch-font);font-weight:600}
+  .ink{color:var(--ink)}
+  .muted{color:var(--ink-2)}
+  .hi{background:linear-gradient(transparent 55%, var(--accent) 55%, var(--accent) 92%, transparent 92%);padding:0 4px}
+  .chip{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 8px;border:1.5px solid var(--ink);margin:2px 4px 2px 0;background:var(--paper)}
+  .chip.fill{background:var(--accent)}
+  .pill{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 10px;border:1.5px solid var(--ink);border-radius:999px}
+  .arrow{font-family:var(--sketch-font);font-size:22px}
+  .note{font-family:var(--sketch-font);font-size:18px;color:var(--ink-2)}
+  .note-callout{
+    position:absolute;font-family:var(--sketch-font);font-size:16px;color:var(--ink-2);
+    background:var(--paper);padding:2px 6px;border:1px dashed var(--ink-2);
+    white-space:nowrap;
+  }
+  .stripes{
+    background-image:repeating-linear-gradient(45deg, #eee, #eee 6px, #fff 6px, #fff 12px);
+    border:1.5px dashed var(--ink-2);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:11px;color:var(--ink-2);
+    min-height:80px;
+  }
+  .squiggle{height:10px;width:100%;display:block;overflow:visible}
+  hr.sketch{
+    border:none;height:2px;
+    background-image: repeating-linear-gradient(90deg, var(--ink) 0 8px, transparent 8px 14px);
+    margin:18px 0;
+  }
+  .row{display:flex;gap:14px;flex-wrap:wrap}
+  .grid{display:grid;gap:14px}
+  .dots{display:inline-block;letter-spacing:2px}
+
+  /* ======= DIRECTION 1: DASHBOARD ======= */
+  .d1{display:grid;grid-template-columns: 220px 1fr;gap:18px}
+  .d1 .sidebar{display:flex;flex-direction:column;gap:10px}
+  .d1 .nav-item{font-family:var(--mono);font-size:12px;padding:8px 10px;border:1.5px solid var(--ink);background:#fff;display:flex;justify-content:space-between}
+  .d1 .nav-item.active{background:var(--accent)}
+  .d1 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+  .d1 .kpi{padding:14px}
+  .d1 .kpi .v{font-family:var(--sketch-font);font-size:42px;line-height:1}
+  .d1 .kpi .k{font-family:var(--mono);font-size:10px;color:var(--ink-2);text-transform:uppercase}
+  .d1 .main{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+  .d1 .chart{height:220px;position:relative;padding:14px}
+  .d1 .chart .y{position:absolute;left:6px;top:6px;bottom:6px;width:1px;background:var(--ink)}
+  .d1 .chart .x{position:absolute;left:6px;right:6px;bottom:6px;height:1px;background:var(--ink)}
+  .d1 .live{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px}
+  .d1 .dot{width:8px;height:8px;border-radius:50%;background:#2aa84f;box-shadow:0 0 0 4px rgba(42,168,79,.2)}
+
+  /* ======= DIRECTION 2: TERMINAL ======= */
+  .d2{max-width:900px;margin:0 auto}
+  .d2 .term{
+    background:#111;color:#eaeaea;font-family:var(--mono);font-size:14px;
+    padding:20px 22px;border:2px solid var(--ink);border-radius:4px;
+    line-height:1.7;position:relative;
+  }
+  .d2 .term .bar{position:absolute;top:10px;left:12px;display:flex;gap:6px}
+  .d2 .term .bar i{width:10px;height:10px;border-radius:50%;background:#444;display:block}
+  .d2 .term .bar i:first-child{background:#ff6058}
+  .d2 .term .bar i:nth-child(2){background:#ffbd2e}
+  .d2 .term .bar i:nth-child(3){background:#27c93f}
+  .d2 .term .body{margin-top:24px}
+  .d2 .prompt{color:#8ef58a}
+  .d2 .cmd{color:#fff}
+  .d2 .out{color:#bfbfbf}
+  .d2 .hl{color:#ffe14a}
+  .d2 .cursor{display:inline-block;width:8px;height:16px;background:#eaeaea;vertical-align:-2px;animation:blink 1s steps(2) infinite}
+  @keyframes blink{to{opacity:0}}
+
+  /* ======= DIRECTION 3: EDITORIAL ======= */
+  .d3 .hero{
+    font-family:var(--sketch-font);font-weight:700;font-size:clamp(60px,11vw,180px);
+    line-height:.9;letter-spacing:-2px;margin:20px 0 8px;
+  }
+  .d3 .hero em{font-style:normal;background:var(--accent);padding:0 10px}
+  .d3 .hero-sub{font-family:var(--body-font);font-size:20px;max-width:640px;color:var(--ink-2)}
+  .d3 .mast{display:flex;gap:20px;align-items:flex-end;border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:24px}
+  .d3 .mast .logo{font-family:var(--sketch-font);font-size:34px}
+  .d3 .mast nav{display:flex;gap:18px;margin-left:auto;font-family:var(--mono);font-size:12px}
+  .d3 .mast nav a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid transparent}
+  .d3 .mast nav a:hover{border-color:var(--ink)}
+  .d3 .index{display:grid;grid-template-columns:80px 1fr 1fr 140px 90px;gap:4px 16px;margin-top:30px}
+  .d3 .index .h{font-family:var(--mono);font-size:10px;text-transform:uppercase;color:var(--ink-2);padding-bottom:6px;border-bottom:1.5px solid var(--ink)}
+  .d3 .index .r{font-family:var(--body-font);font-size:16px;padding:10px 0;border-bottom:1px dashed var(--ink-3);display:contents}
+  .d3 .index .r > *{padding:12px 0;border-bottom:1px dashed var(--ink-3)}
+  .d3 .index .r .t{font-family:var(--sketch-font);font-size:22px;font-weight:700}
+  .d3 .index .r:hover .t{background:var(--accent)}
+
+  /* ======= DIRECTION 4: CHART AS NAV ======= */
+  .d4-wrap{display:grid;grid-template-columns: 1fr 280px;gap:20px}
+  .d4 .plot{
+    position:relative;aspect-ratio:1.3/1;border:2px solid var(--ink);background:#fff;
+    padding:30px;
+  }
+  .d4 .axis-x,.d4 .axis-y{position:absolute;font-family:var(--mono);font-size:11px;color:var(--ink-2)}
+  .d4 .axis-x{bottom:6px;left:0;right:0;display:flex;justify-content:space-between;padding:0 24px}
+  .d4 .axis-y{top:0;bottom:0;left:6px;display:flex;flex-direction:column;justify-content:space-between;padding:24px 0;writing-mode:vertical-rl;transform:rotate(180deg)}
+  .d4 .plot .xline,.d4 .plot .yline{position:absolute;background:var(--ink)}
+  .d4 .plot .xline{left:24px;right:24px;bottom:22px;height:1.5px}
+  .d4 .plot .yline{top:24px;bottom:22px;left:24px;width:1.5px}
+  .d4 .dotp{
+    position:absolute;border:2px solid var(--ink);background:var(--accent);
+    border-radius:50%;transform:translate(-50%,-50%);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--sketch-font);font-weight:700;font-size:14px;
+  }
+  .d4 .dotp:hover{background:var(--ink);color:var(--paper)}
+  .d4 .dotp .lbl{position:absolute;top:-8px;left:28px;font-family:var(--sketch-font);font-size:16px;color:var(--ink);white-space:nowrap;font-weight:600}
+  .d4 .legend{font-family:var(--mono);font-size:11px;color:var(--ink-2);position:absolute;top:8px;right:12px}
+
+  /* ======= DIRECTION 5: SIDE SCROLL ZINE ======= */
+  .d5-scroll{
+    overflow-x:auto;overflow-y:hidden;border:2px dashed var(--ink);padding:16px;
+    background:repeating-linear-gradient(0deg,transparent 0 28px, rgba(0,0,0,0.04) 28px 29px);
+  }
+  .d5-track{display:flex;gap:16px;min-width:min-content}
+  .d5 .panel{
+    flex:0 0 360px;border:2px solid var(--ink);background:#fff;padding:16px;
+    display:flex;flex-direction:column;gap:10px;min-height:420px;
+    position:relative;
+  }
+  .d5 .panel.wide{flex-basis:560px}
+  .d5 .panel .idx{
+    position:absolute;top:-12px;left:-12px;width:36px;height:36px;border-radius:50%;
+    background:var(--accent);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;
+    font-family:var(--sketch-font);font-weight:700;font-size:20px;
+  }
+  .d5 .panel h3{font-family:var(--sketch-font);font-size:30px;margin:4px 0 0}
+
+  /* ======= DIRECTION 6: LEDGER ======= */
+  .d6 table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13px;background:#fff;border:2px solid var(--ink)}
+  .d6 th,.d6 td{border-bottom:1.5px solid var(--ink);border-right:1.5px dashed var(--ink-3);padding:10px 12px;text-align:left;vertical-align:top}
+  .d6 th{background:var(--paper);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+  .d6 tr:last-child td{border-bottom:none}
+  .d6 td:last-child, .d6 th:last-child{border-right:none}
+  .d6 tr:hover td{background:#fffdf1}
+  .d6 .tt{font-family:var(--sketch-font);font-size:22px;font-weight:700}
+  .d6 .ledger-head{
+    display:grid;grid-template-columns:1fr auto;align-items:end;
+    padding-bottom:14px;margin-bottom:10px;border-bottom:3px double var(--ink);
+  }
+  .d6 .ledger-head h3{font-family:var(--sketch-font);font-size:46px;margin:0}
+  .d6 .stamp{
+    font-family:var(--mono);font-size:10px;border:2px solid var(--accent-2);color:var(--accent-2);
+    padding:4px 10px;transform:rotate(-6deg);display:inline-block;letter-spacing:.1em
+  }
+
+  /* ======= Tweaks panel ======= */
+  #tweaks{
+    position:fixed;right:18px;bottom:18px;width:260px;
+    background:var(--paper);border:2px solid var(--ink);
+    box-shadow:4px 4px 0 var(--ink);
+    font-family:var(--mono);font-size:12px;z-index:100;display:none;
+  }
+  #tweaks.on{display:block}
+  #tweaks .th{background:var(--ink);color:var(--paper);padding:6px 10px;display:flex;justify-content:space-between;align-items:center}
+  #tweaks .th b{font-family:var(--sketch-font);font-size:18px;font-weight:700;letter-spacing:.5px}
+  #tweaks .tb{padding:10px 12px;display:flex;flex-direction:column;gap:12px}
+  #tweaks label{display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--ink-2)}
+  #tweaks .swatches{display:flex;gap:6px;flex-wrap:wrap}
+  #tweaks .sw{width:22px;height:22px;border:1.5px solid var(--ink);cursor:pointer}
+  #tweaks .sw.active{outline:2px solid var(--ink);outline-offset:2px}
+  #tweaks select,#tweaks input[type=range]{font-family:var(--mono);font-size:12px}
+  #tweaks .seg{display:flex;border:1.5px solid var(--ink)}
+  #tweaks .seg button{flex:1;background:transparent;border:none;padding:5px;font-family:var(--mono);font-size:11px;cursor:pointer;border-right:1.5px solid var(--ink)}
+  #tweaks .seg button:last-child{border-right:none}
+  #tweaks .seg button.active{background:var(--accent)}
+
+  /* Intro/hint */
+  .hint{
+    font-family:var(--sketch-font);font-size:18px;color:var(--ink-2);
+    margin:4px 0 20px;
+  }
+  .hint b{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>Portfolio Wireframes</h1>
+  <span class="sub">// 6 directions · data scientist / consultant · bold+witty</span>
+  <div class="tabs" id="tabs"></div>
+</div>
+
+<p class="hint" style="padding:0 40px;margin-top:14px">
+  <b>Low-fi sketches</b> — structure + flow only. Toggle <b>Tweaks</b> (top toolbar) to play with accent color, font pairing, and density.
+</p>
+
+<!-- ============================================================= -->
+<!-- DIRECTION 1: THE DASHBOARD -->
+<!-- ============================================================= -->
+<section class="page active" data-screen-label="01 The Dashboard" id="p1">
+  <div class="page-head">
+    <div class="num">01</div>
+    <h2>The Dashboard</h2>
+    <span class="tag">LAYOUT_01 / dashboard</span>
+    <div class="desc">Portfolio as a live analytics dashboard. KPI tiles, charts, and a "now" widget. On-brand for a data person.</div>
+  </div>
+
+  <div class="d1">
+    <aside class="sidebar">
+      <div class="box" style="padding:10px">
+        <div class="scrawl" style="font-size:28px;line-height:1">Your Name</div>
+        <div class="label">data scientist · consultant</div>
+      </div>
+      <div class="nav-item active">· Overview <span class="muted">⌘1</span></div>
+      <div class="nav-item">· Projects <span class="muted">8</span></div>
+      <div class="nav-item">· Experience <span class="muted">⌘2</span></div>
+      <div class="nav-item">· Writing <span class="muted">12</span></div>
+      <div class="nav-item">· Now <span class="muted">●</span></div>
+      <div class="nav-item">· Contact</div>
+      <div class="box dashed" style="margin-top:10px">
+        <div class="label">status</div>
+        <div class="scrawl" style="font-size:22px"><span class="hi">Open to work</span></div>
+        <div class="note">↳ next 8 weeks</div>
+      </div>
+    </aside>
+
+    <div>
+      <div class="kpis">
+        <div class="box kpi tilt-l"><div class="v">42</div><div class="k">projects shipped</div></div>
+        <div class="box kpi"><div class="v">$3.1M</div><div class="k">measured impact</div></div>
+        <div class="box kpi tilt-r"><div class="v">7 yrs</div><div class="k">in the game</div></div>
+        <div class="box kpi"><div class="v">☕ 1,204</div><div class="k">espresso units</div></div>
+      </div>
+
+      <div class="main">
+        <div class="box chart">
+          <div class="label">SELECTED WORK &nbsp; · &nbsp; impact × time</div>
+          <div class="y"></div><div class="x"></div>
+          <!-- fake plotted points -->
+          <div style="position:absolute;left:18%;top:55%;width:14px;height:14px;background:var(--accent);border:2px solid var(--ink);border-radius:50%"></div>
+          <div style="position:absolute;left:32%;top:35%;width:14px;height:14px;background:#fff;border:2px solid var(--ink);border-radius:50%"></div>
+          <div style="position:absolute;left:45%;top:48%;width:18px;height:18px;background:var(--accent);border:2px solid var(--ink);border-radius:50%"></div>
+          <div style="position:absolute;left:60%;top:22%;width:22px;height:22px;background:var(--accent);border:2px solid var(--ink);border-radius:50%"></div>
+          <div style="position:absolute;left:78%;top:30%;width:14px;height:14px;background:#fff;border:2px solid var(--ink);border-radius:50%"></div>
+          <div style="position:absolute;left:88%;top:14%;width:28px;height:28px;background:var(--accent);border:2px solid var(--ink);border-radius:50%"></div>
+          <div class="note-callout" style="top:10%;right:6%">↑ latest: churn model</div>
+          <div class="note" style="position:absolute;bottom:-26px;left:24px">time →</div>
+          <div class="note" style="position:absolute;top:10px;left:-8px;transform:rotate(-90deg);transform-origin:left top">impact →</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="box">
+            <div class="label">NOW &nbsp; <span class="live"><span class="dot"></span> live</span></div>
+            <div class="scrawl" style="font-size:22px;margin-top:6px">Currently poking at…</div>
+            <ul style="margin:8px 0 0 18px;padding:0">
+              <li>Retrieval eval harness for a fintech</li>
+              <li>Reading: <i>Statistical Rethinking</i></li>
+              <li>Garden: 3 tomato varieties, 1 sad basil</li>
+            </ul>
+          </div>
+          <div class="box dashed">
+            <div class="label">RECENT POSTS</div>
+            <div class="scrawl" style="font-size:20px;margin-top:4px">· Why your A/B test lies</div>
+            <div class="scrawl" style="font-size:20px">· 5 dashboards, ranked</div>
+            <div class="scrawl" style="font-size:20px">· Consultants &amp; the curse of RAG</div>
+          </div>
+          <div class="box" style="background:var(--accent)">
+            <div class="label">CONTACT</div>
+            <div class="scrawl" style="font-size:24px">you@domain.com</div>
+            <div class="note">↳ replies in &lt; 24h (usually)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- DIRECTION 2: TERMINAL -->
+<!-- ============================================================= -->
+<section class="page" data-screen-label="02 The Terminal" id="p2">
+  <div class="page-head">
+    <div class="num">02</div>
+    <h2>The Terminal</h2>
+    <span class="tag">LAYOUT_02 / cli-notebook</span>
+    <div class="desc">Navigate via commands. Content printed like Jupyter outputs. Playful for a technical audience.</div>
+  </div>
+
+  <div class="d2">
+    <div class="term">
+      <div class="bar"><i></i><i></i><i></i></div>
+      <div class="body">
+        <div><span class="prompt">you@portfolio:~$</span> <span class="cmd">whoami</span></div>
+        <div class="out">→ <span class="hl">Your Name</span>. data scientist + biz consultant.</div>
+        <div class="out">&nbsp;&nbsp;&nbsp;i make messy data tell the truth, slightly reluctantly.</div>
+        <br>
+        <div><span class="prompt">you@portfolio:~$</span> <span class="cmd">ls projects/</span></div>
+        <div class="out">churn-model/   pricing-sim/   rag-eval/   ops-forecast/</div>
+        <div class="out">ltv-segment/   ab-framework/ dashboard/  the-side-quest/</div>
+        <br>
+        <div><span class="prompt">you@portfolio:~$</span> <span class="cmd">cat about.md</span></div>
+        <div class="out"># about</div>
+        <div class="out">7 yrs in consulting → 3 yrs independent.</div>
+        <div class="out">clients: fortune 500 &amp; stealth startups.</div>
+        <div class="out">stack: python, sql, dbt, a worrying amount of excel.</div>
+        <br>
+        <div><span class="prompt">you@portfolio:~$</span> <span class="cmd">./now.sh</span></div>
+        <div class="out">[●] building retrieval eval for a fintech</div>
+        <div class="out">[●] reading statistical rethinking (ch. 5)</div>
+        <div class="out">[○] not answering linkedin recruiters</div>
+        <br>
+        <div><span class="prompt">you@portfolio:~$</span> <span class="cmd">contact --help</span></div>
+        <div class="out">usage: email | calendly | rss</div>
+        <div><span class="prompt">you@portfolio:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:16px">
+      <span class="chip">press <b>?</b> for commands</span>
+      <span class="chip fill">tab = autocomplete</span>
+      <span class="chip">↑↓ = history</span>
+      <span class="chip">theme: dark ⇌ light</span>
+    </div>
+
+    <div class="box dashed" style="margin-top:16px">
+      <div class="label">pseudo-notebook view</div>
+      <div class="scrawl" style="font-size:22px">Each project opens as an inline "cell" — title, context, chart, write-up, next command.</div>
+      <div class="stripes" style="margin-top:8px;height:120px">[ project cell render — code block, output chart, 3 paragraphs ]</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- DIRECTION 3: EDITORIAL -->
+<!-- ============================================================= -->
+<section class="page" data-screen-label="03 Editorial Bold" id="p3">
+  <div class="page-head">
+    <div class="num">03</div>
+    <h2>Editorial Bold</h2>
+    <span class="tag">LAYOUT_03 / magazine</span>
+    <div class="desc">Giant typographic hero. Work index as a magazine contents page. Loud, confident, very readable.</div>
+  </div>
+
+  <div class="d3">
+    <div class="mast">
+      <div class="logo">YN.</div>
+      <nav>
+        <a>index</a><a>about</a><a>writing</a><a>now</a><a>contact ↗</a>
+      </nav>
+    </div>
+
+    <div class="hero">
+      I turn <em>messy data</em><br>
+      into <em>boring profit.</em>
+    </div>
+    <div class="hero-sub">
+      Data scientist &amp; consultant. 7 years of making spreadsheets behave, dashboards useful,
+      and executive meetings 14% shorter. Currently <span class="hi">taking on 2 more clients</span> for Q3.
+    </div>
+
+    <hr class="sketch">
+
+    <div class="label">※ contents · 08 selected works</div>
+    <div class="index">
+      <div class="h">№</div><div class="h">project</div><div class="h">client</div><div class="h">outcome</div><div class="h">year</div>
+      <div class="r"><div>01</div><div class="t">Churn, Predicted</div><div>Fintech A</div><div>−18% monthly attrition</div><div>'25</div></div>
+      <div class="r"><div>02</div><div class="t">The Pricing Sim</div><div>DTC brand</div><div>+$2.1M revenue</div><div>'25</div></div>
+      <div class="r"><div>03</div><div class="t">RAG That Works</div><div>Legal tech</div><div>90% answer accuracy</div><div>'24</div></div>
+      <div class="r"><div>04</div><div class="t">Ops Forecast Engine</div><div>Logistics co.</div><div>2 hrs → 8 min</div><div>'24</div></div>
+      <div class="r"><div>05</div><div class="t">LTV, Segmented</div><div>Stealth</div><div>3 actionable cohorts</div><div>'24</div></div>
+      <div class="r"><div>06</div><div class="t">A/B Framework</div><div>Marketplace</div><div>from vibes to stats</div><div>'23</div></div>
+      <div class="r"><div>07</div><div class="t">The Exec Dashboard</div><div>Series B SaaS</div><div>actually opened</div><div>'23</div></div>
+      <div class="r"><div>08</div><div class="t">Side Quest: Weatherbot</div><div>Self</div><div>5k MAU, 0 revenue</div><div>'23</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- DIRECTION 4: CHART AS NAV -->
+<!-- ============================================================= -->
+<section class="page" data-screen-label="04 Chart Nav" id="p4">
+  <div class="page-head">
+    <div class="num">04</div>
+    <h2>The Chart (is the Nav)</h2>
+    <span class="tag">LAYOUT_04 / scatterplot-nav</span>
+    <div class="desc">Projects plotted by impact × effort. Hover = preview, click = case study. The medium IS the message.</div>
+  </div>
+
+  <div class="d4-wrap d4">
+    <div class="plot">
+      <div class="legend">● = project · size = $ impact</div>
+      <div class="xline"></div><div class="yline"></div>
+      <div class="axis-x"><span>← low effort</span><span>high effort →</span></div>
+      <div class="axis-y"><span>← low impact</span><span>high impact →</span></div>
+
+      <div class="dotp" style="left:22%;top:70%;width:28px;height:28px"><span class="lbl">churn model</span>01</div>
+      <div class="dotp" style="left:38%;top:46%;width:36px;height:36px"><span class="lbl">pricing sim</span>02</div>
+      <div class="dotp" style="left:30%;top:28%;width:22px;height:22px;background:#fff"><span class="lbl">RAG eval</span>03</div>
+      <div class="dotp" style="left:60%;top:34%;width:40px;height:40px"><span class="lbl">ops forecast</span>04</div>
+      <div class="dotp" style="left:52%;top:60%;width:24px;height:24px;background:#fff"><span class="lbl">LTV segments</span>05</div>
+      <div class="dotp" style="left:70%;top:20%;width:30px;height:30px"><span class="lbl">A/B framework</span>06</div>
+      <div class="dotp" style="left:80%;top:42%;width:34px;height:34px"><span class="lbl">exec dash</span>07</div>
+      <div class="dotp" style="left:15%;top:86%;width:18px;height:18px;background:#fff"><span class="lbl">weatherbot</span>08</div>
+
+      <div class="note-callout" style="top:12px;left:14px">your work, mapped →</div>
+    </div>
+
+    <aside style="display:flex;flex-direction:column;gap:12px">
+      <div class="box tilt-l">
+        <div class="label">Hi.</div>
+        <div class="scrawl" style="font-size:32px;line-height:1.05">I'm Your Name.</div>
+        <div class="note">Data scientist who moonlights as a consultant, or vice versa.</div>
+      </div>
+      <div class="box">
+        <div class="label">FILTERS</div>
+        <div style="margin-top:6px">
+          <span class="chip fill">all</span>
+          <span class="chip">ML</span>
+          <span class="chip">analytics</span>
+          <span class="chip">strategy</span>
+          <span class="chip">fun</span>
+        </div>
+        <hr class="sketch">
+        <div class="label">SORT BY</div>
+        <div class="seg" style="display:flex;border:1.5px solid var(--ink);margin-top:6px">
+          <div style="flex:1;padding:4px;text-align:center;background:var(--accent);font-family:var(--mono);font-size:11px">impact</div>
+          <div style="flex:1;padding:4px;text-align:center;font-family:var(--mono);font-size:11px;border-left:1.5px solid var(--ink)">recency</div>
+          <div style="flex:1;padding:4px;text-align:center;font-family:var(--mono);font-size:11px;border-left:1.5px solid var(--ink)">effort</div>
+        </div>
+      </div>
+      <div class="box dashed">
+        <div class="label">SELECTED:  04 / ops forecast</div>
+        <div class="scrawl" style="font-size:20px">2 hrs → 8 min forecasts for a 500-truck fleet.</div>
+        <div class="stripes" style="height:80px;margin-top:6px">[ preview chart ]</div>
+        <div class="note">click dot → full case study</div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- DIRECTION 5: SIDE SCROLL ZINE -->
+<!-- ============================================================= -->
+<section class="page" data-screen-label="05 Side Scroll Zine" id="p5">
+  <div class="page-head">
+    <div class="num">05</div>
+    <h2>Side-Scroll Zine</h2>
+    <span class="tag">LAYOUT_05 / horizontal</span>
+    <div class="desc">Horizontal scroll story — intro, work panels, now, contact. Each panel a numbered "page" like a comic.</div>
+  </div>
+
+  <div class="d5 d5-scroll">
+    <div class="d5-track">
+
+      <div class="panel wide">
+        <div class="idx">1</div>
+        <div class="label">cover</div>
+        <div class="scrawl" style="font-size:72px;line-height:.9;margin-top:20px">Your<br>Name,<br>the zine.</div>
+        <div class="note" style="margin-top:auto">→ scroll to see 8 projects, 1 blog, 1 invitation</div>
+      </div>
+
+      <div class="panel">
+        <div class="idx">2</div>
+        <div class="label">about</div>
+        <h3>the data nerd</h3>
+        <div class="stripes" style="height:120px">[ headshot placeholder ]</div>
+        <div>7 years turning <span class="hi">chaos → charts → cash</span>. Ex-McK, now independent. Based in wherever WiFi is.</div>
+      </div>
+
+      <div class="panel">
+        <div class="idx">3</div>
+        <div class="label">project 01</div>
+        <h3>Churn, predicted.</h3>
+        <div class="stripes" style="height:140px">[ model perf chart ]</div>
+        <div class="note">Fintech A · −18% attrition · 2025</div>
+      </div>
+
+      <div class="panel">
+        <div class="idx">4</div>
+        <div class="label">project 02</div>
+        <h3>Pricing sim.</h3>
+        <div class="stripes" style="height:140px">[ price curve ]</div>
+        <div class="note">DTC brand · +$2.1M · 2025</div>
+      </div>
+
+      <div class="panel">
+        <div class="idx">5</div>
+        <div class="label">project 03</div>
+        <h3>RAG that works.</h3>
+        <div class="stripes" style="height:140px">[ retrieval eval ]</div>
+        <div class="note">Legal tech · 90% accuracy · 2024</div>
+      </div>
+
+      <div class="panel">
+        <div class="idx">…</div>
+        <div class="label">more</div>
+        <h3>+ 5 more.</h3>
+        <div class="note">ops forecast · LTV · A/B · exec dash · weatherbot</div>
+        <div class="chip" style="margin-top:auto">see all →</div>
+      </div>
+
+      <div class="panel" style="background:var(--accent)">
+        <div class="idx">9</div>
+        <div class="label">now</div>
+        <h3>what I'm doing rn</h3>
+        <ul style="margin:0 0 0 16px;padding:0">
+          <li>building retrieval eval</li>
+          <li>rereading <i>stat. rethinking</i></li>
+          <li>1 tomato, against all odds</li>
+        </ul>
+        <div class="note" style="margin-top:auto">updated april 2026</div>
+      </div>
+
+      <div class="panel">
+        <div class="idx">10</div>
+        <div class="label">end</div>
+        <h3>hire me, <br>or just say hi.</h3>
+        <div style="margin-top:12px"><span class="chip fill">email ↗</span> <span class="chip">calendly</span> <span class="chip">rss</span></div>
+        <div class="note" style="margin-top:auto">that's a wrap ✌︎</div>
+      </div>
+
+    </div>
+  </div>
+  <div class="note" style="margin-top:10px">↔ drag / swipe / arrow-key to scroll. vertical scroll hijacked politely on desktop.</div>
+</section>
+
+<!-- ============================================================= -->
+<!-- DIRECTION 6: LEDGER -->
+<!-- ============================================================= -->
+<section class="page" data-screen-label="06 The Ledger" id="p6">
+  <div class="page-head">
+    <div class="num">06</div>
+    <h2>The Ledger</h2>
+    <span class="tag">LAYOUT_06 / spreadsheet</span>
+    <div class="desc">Everything is a row. Nav is tabs (sheets). Dense, confident, the consultant's natural habitat.</div>
+  </div>
+
+  <div class="d6">
+    <div class="ledger-head">
+      <div>
+        <h3>Your Name, Ltd.</h3>
+        <div class="note">data science + consulting · annual report · 2026</div>
+      </div>
+      <div><span class="stamp">OPEN TO WORK</span></div>
+    </div>
+
+    <div class="row" style="margin-bottom:10px">
+      <span class="chip fill">/ work</span>
+      <span class="chip">/ experience</span>
+      <span class="chip">/ writing</span>
+      <span class="chip">/ about</span>
+      <span class="chip">/ now</span>
+      <span class="chip">/ contact</span>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Project</th><th>Client</th><th>What I did</th><th>Outcome</th><th>Yr</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>001</td><td class="tt">Churn, predicted</td><td>Fintech A</td><td>XGBoost + retention playbook</td><td>−18% monthly churn</td><td>'25</td></tr>
+        <tr><td>002</td><td class="tt">Pricing sim</td><td>DTC brand</td><td>Elasticity model + exec workshop</td><td>+$2.1M revenue</td><td>'25</td></tr>
+        <tr><td>003</td><td class="tt">RAG eval</td><td>Legal tech</td><td>Retrieval harness, 300-doc gold set</td><td>90% answer accuracy</td><td>'24</td></tr>
+        <tr><td>004</td><td class="tt">Ops forecast</td><td>Logistics co.</td><td>Prophet + dbt pipeline</td><td>2h → 8min cycle</td><td>'24</td></tr>
+        <tr><td>005</td><td class="tt">LTV segments</td><td>Stealth</td><td>K-means + narrative</td><td>3 actionable cohorts</td><td>'24</td></tr>
+        <tr><td>006</td><td class="tt">A/B framework</td><td>Marketplace</td><td>Stats 101 doc + calculator</td><td>vibes → rigor</td><td>'23</td></tr>
+        <tr><td>007</td><td class="tt">Exec dashboard</td><td>SaaS, series B</td><td>Metabase rebuild</td><td>actually opened (!)</td><td>'23</td></tr>
+        <tr><td>008</td><td class="tt">Weatherbot</td><td>Self</td><td>python + telegram bot</td><td>5k MAU, $0 ARR ✌︎</td><td>'23</td></tr>
+      </tbody>
+    </table>
+
+    <div class="row" style="margin-top:18px">
+      <div class="box" style="flex:1;min-width:260px">
+        <div class="label">NOTES TO THE READER (aka about)</div>
+        <div class="scrawl" style="font-size:22px">7 yrs in. Ex-McK. Independent since '23. Python, SQL, dbt, unhealthy Excel skills.</div>
+      </div>
+      <div class="box dashed" style="flex:1;min-width:260px">
+        <div class="label">LINE ITEMS: NOW</div>
+        <ul style="margin:6px 0 0 16px;padding:0">
+          <li>retrieval eval for a fintech</li>
+          <li>reading: statistical rethinking</li>
+          <li>tomatoes: 1 live, 1 deceased</li>
+        </ul>
+      </div>
+      <div class="box" style="flex:1;min-width:260px;background:var(--accent)">
+        <div class="label">BOTTOM LINE</div>
+        <div class="scrawl" style="font-size:24px">you@domain.com</div>
+        <div class="note">or book 30 min ↗</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======= Tweaks panel ======= -->
+<div id="tweaks">
+  <div class="th"><b>Tweaks</b><span class="muted" id="tweakHint">live</span></div>
+  <div class="tb">
+    <label>accent
+      <div class="swatches" id="swAccent">
+        <div class="sw active" data-c="#ffe14a" style="background:#ffe14a"></div>
+        <div class="sw" data-c="#ff7a59" style="background:#ff7a59"></div>
+        <div class="sw" data-c="#84d2f6" style="background:#84d2f6"></div>
+        <div class="sw" data-c="#c5f26b" style="background:#c5f26b"></div>
+        <div class="sw" data-c="#f6a5e5" style="background:#f6a5e5"></div>
+        <div class="sw" data-c="#ffffff" style="background:#ffffff"></div>
+      </div>
+    </label>
+    <label>font pairing
+      <select id="fontSel">
+        <option value="caveat">Caveat + Kalam (default)</option>
+        <option value="patrick">Patrick Hand + Shadows</option>
+        <option value="architects">Architects Daughter</option>
+        <option value="gloria">Gloria Hallelujah</option>
+      </select>
+    </label>
+    <label>density
+      <div class="seg" id="densSeg">
+        <button data-d="0.85">tight</button>
+        <button class="active" data-d="1">default</button>
+        <button data-d="1.18">roomy</button>
+      </div>
+    </label>
+    <label>theme
+      <div class="seg" id="themeSeg">
+        <button class="active" data-t="light">light</button>
+        <button data-t="dark">dark</button>
+      </div>
+    </label>
+  </div>
+</div>
+
+<!-- extra google fonts for tweaks -->
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Shadows+Into+Light&family=Architects+Daughter&family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+
+<script>
+/* ================= TWEAKS state ================= */
+const TWEAKS = /*EDITMODE-BEGIN*/{
+  "accent": "#ff7a59",
+  "font": "caveat",
+  "density": "1",
+  "theme": "light"
+}/*EDITMODE-END*/;
+
+/* ================= Tab navigation ================= */
+const PAGES = [
+  {id:'p1', name:'01 · Dashboard'},
+  {id:'p2', name:'02 · Terminal'},
+  {id:'p3', name:'03 · Editorial'},
+  {id:'p4', name:'04 · Chart Nav'},
+  {id:'p5', name:'05 · Side-Scroll'},
+  {id:'p6', name:'06 · Ledger'},
+];
+const tabsEl = document.getElementById('tabs');
+PAGES.forEach((p,i)=>{
+  const b = document.createElement('button');
+  b.className = 'tab' + (i===0?' active':'');
+  b.textContent = p.name;
+  b.onclick = ()=>activate(i);
+  tabsEl.appendChild(b);
+});
+function activate(i){
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active', i===j));
+  document.querySelectorAll('.page').forEach((pg,j)=>pg.classList.toggle('active', i===j));
+  try{localStorage.setItem('pf_wire_tab', String(i));}catch(e){}
+  window.postMessage({slideIndexChanged:i}, '*');
+}
+try{
+  const saved = parseInt(localStorage.getItem('pf_wire_tab')||'0',10);
+  if(!isNaN(saved) && saved>=0 && saved<PAGES.length) activate(saved);
+}catch(e){}
+
+/* keyboard */
+document.addEventListener('keydown', e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT') return;
+  const cur = [...document.querySelectorAll('.page')].findIndex(p=>p.classList.contains('active'));
+  if(e.key==='ArrowRight' || e.key==='j') activate(Math.min(PAGES.length-1, cur+1));
+  if(e.key==='ArrowLeft'  || e.key==='k') activate(Math.max(0, cur-1));
+});
+
+/* ================= Tweaks apply ================= */
+function applyTweaks(t){
+  const r = document.documentElement;
+  r.style.setProperty('--accent', t.accent);
+  r.style.setProperty('--density', t.density);
+  // font
+  const fonts = {
+    caveat:    {h:"'Caveat', cursive",           b:"'Kalam', cursive"},
+    patrick:   {h:"'Patrick Hand', cursive",     b:"'Shadows Into Light', cursive"},
+    architects:{h:"'Architects Daughter', cursive", b:"'Architects Daughter', cursive"},
+    gloria:    {h:"'Gloria Hallelujah', cursive",b:"'Gloria Hallelujah', cursive"},
+  };
+  const f = fonts[t.font] || fonts.caveat;
+  r.style.setProperty('--sketch-font', f.h);
+  r.style.setProperty('--body-font', f.b);
+  // theme
+  if(t.theme==='dark'){
+    r.style.setProperty('--paper','#1a1a1a');
+    r.style.setProperty('--ink','#faf7f2');
+    r.style.setProperty('--ink-2','#bbb');
+    r.style.setProperty('--ink-3','#666');
+  } else {
+    r.style.setProperty('--paper','#faf7f2');
+    r.style.setProperty('--ink','#1a1a1a');
+    r.style.setProperty('--ink-2','#555');
+    r.style.setProperty('--ink-3','#999');
+  }
+  // reflect UI
+  document.querySelectorAll('#swAccent .sw').forEach(s=>s.classList.toggle('active', s.dataset.c===t.accent));
+  document.getElementById('fontSel').value = t.font;
+  document.querySelectorAll('#densSeg button').forEach(b=>b.classList.toggle('active', b.dataset.d===t.density));
+  document.querySelectorAll('#themeSeg button').forEach(b=>b.classList.toggle('active', b.dataset.t===t.theme));
+}
+applyTweaks(TWEAKS);
+
+function persist(partial){
+  Object.assign(TWEAKS, partial);
+  try{window.parent.postMessage({type:'__edit_mode_set_keys', edits: partial}, '*');}catch(e){}
+  applyTweaks(TWEAKS);
+}
+
+document.querySelectorAll('#swAccent .sw').forEach(s=>{
+  s.onclick = ()=>persist({accent: s.dataset.c});
+});
+document.getElementById('fontSel').onchange = e=>persist({font: e.target.value});
+document.querySelectorAll('#densSeg button').forEach(b=>{
+  b.onclick = ()=>persist({density: b.dataset.d});
+});
+document.querySelectorAll('#themeSeg button').forEach(b=>{
+  b.onclick = ()=>persist({theme: b.dataset.t});
+});
+
+/* ================= Edit-mode host handshake ================= */
+window.addEventListener('message', (ev)=>{
+  const d = ev.data || {};
+  if(d.type === '__activate_edit_mode')   document.getElementById('tweaks').classList.add('on');
+  if(d.type === '__deactivate_edit_mode') document.getElementById('tweaks').classList.remove('on');
+});
+try{ window.parent.postMessage({type:'__edit_mode_available'}, '*'); }catch(e){}
+</script>
+</body>
+</html>

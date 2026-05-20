@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Portfolio · Hi-Fi Directions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="portfolio-hifi/styles.css">
+<link rel="stylesheet" href="portfolio-hifi/soul.css">
+</head>
+<body>
+
+<div class="topbar">
+  <h1>Portfolio · Hi-Fi</h1>
+  <span class="sub">// 4 directions · coffee-tech × wireframe blend · ~55% wireframe DNA</span>
+  <div class="tabs" id="tabs"></div>
+</div>
+
+<main id="root"></main>
+
+<!-- Tweaks panel -->
+<div id="tweaks">
+  <div class="th"><b>Tweaks</b><span class="x" id="tweaksClose">✕</span></div>
+  <div class="tb">
+    <label>Accent color
+      <div class="swatches" id="swAccent">
+        <div class="sw active" data-c="#d4622a" style="background:#d4622a"></div>
+        <div class="sw" data-c="#a84818" style="background:#a84818"></div>
+        <div class="sw" data-c="#c9962b" style="background:#c9962b"></div>
+        <div class="sw" data-c="#3d6e57" style="background:#3d6e57"></div>
+        <div class="sw" data-c="#2c5282" style="background:#2c5282"></div>
+        <div class="sw" data-c="#8e3a59" style="background:#8e3a59"></div>
+      </div>
+    </label>
+    <label>Paper tone
+      <div class="seg" id="paperSeg">
+        <button class="active" data-p="warm">Warm</button>
+        <button data-p="bone">Bone</button>
+        <button data-p="ivory">Ivory</button>
+      </div>
+    </label>
+    <label>Display font
+      <select id="fontSel">
+        <option value="fraunces">Fraunces (default)</option>
+        <option value="playfair">Playfair Display</option>
+        <option value="dm">DM Serif Display</option>
+        <option value="cormorant">Cormorant Garamond</option>
+      </select>
+    </label>
+    <label>Wireframe DNA
+      <div class="seg" id="wireSeg">
+        <button data-w="0">Polish</button>
+        <button class="active" data-w="1">Blend</button>
+        <button data-w="2">Sketchy</button>
+      </div>
+    </label>
+  </div>
+</div>
+
+<!-- Extra fonts that the tweaks may switch to -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+
+<!-- React + Babel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="portfolio-hifi/data.js"></script>
+<script type="text/babel" src="portfolio-hifi/DirectionA.jsx"></script>
+<script type="text/babel" src="portfolio-hifi/DirectionB.jsx"></script>
+<script type="text/babel" src="portfolio-hifi/DirectionC.jsx"></script>
+<script type="text/babel" src="portfolio-hifi/DirectionD.jsx"></script>
+
+<script type="text/babel">
+const PAGES = [
+  { id:'A', name:'A · Roastery',   render: () => <window.DirectionA/> },
+  { id:'B', name:'B · Atelier',    render: () => <window.DirectionB/> },
+  { id:'C', name:'C · Workshop',   render: () => <window.DirectionC/> },
+  { id:'D', name:'D · Catalog',    render: () => <window.DirectionD/> },
+];
+
+function App(){
+  const [tab, setTab] = React.useState(()=>{
+    try { const s = parseInt(localStorage.getItem('pf_hifi_tab')||'0',10); return isNaN(s)?0:s; } catch(e){ return 0; }
+  });
+  React.useEffect(()=>{
+    try { localStorage.setItem('pf_hifi_tab', String(tab)); } catch(e){}
+    window.postMessage({slideIndexChanged:tab}, '*');
+  }, [tab]);
+  React.useEffect(()=>{
+    const h = (e)=>{
+      if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT') return;
+      if(e.key==='ArrowRight') setTab(t=>Math.min(PAGES.length-1, t+1));
+      if(e.key==='ArrowLeft')  setTab(t=>Math.max(0, t-1));
+    };
+    document.addEventListener('keydown', h);
+    return ()=>document.removeEventListener('keydown', h);
+  },[]);
+  React.useEffect(()=>{
+    // Render tabs into topbar (outside React tree)
+    const tabsEl = document.getElementById('tabs');
+    tabsEl.innerHTML = '';
+    PAGES.forEach((p,i)=>{
+      const b = document.createElement('button');
+      b.className = 'tab' + (i===tab?' active':'');
+      b.textContent = p.name;
+      b.onclick = ()=>setTab(i);
+      tabsEl.appendChild(b);
+    });
+  },[tab]);
+
+  return PAGES[tab].render();
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+
+<div class="soul-hint" id="soulHint">try grabbing things · move your cursor around</div>
+<script>
+  // Show the playful hint briefly on load
+  setTimeout(()=>{
+    const h = document.getElementById('soulHint');
+    if(h){ h.classList.add('on'); setTimeout(()=>h.classList.remove('on'), 5500); }
+  }, 1200);
+</script>
+<script src="portfolio-hifi/soul.js" defer></script>
+
+<script>
+/* ================= TWEAKS ================= */
+const TWEAKS = /*EDITMODE-BEGIN*/{
+  "accent": "#d4622a",
+  "paper": "bone",
+  "font": "cormorant",
+  "wire": "2"
+}/*EDITMODE-END*/;
+
+function applyTweaks(t){
+  const r = document.documentElement;
+  r.style.setProperty('--accent', t.accent);
+
+  // paper
+  const papers = {
+    warm:  { paper:"#f5efe6", paper2:"#ebe2d4", paper3:"#e0d4c0", ink:"#2a1f17", ink2:"#5a4a3d", ink3:"#8a7868" },
+    bone:  { paper:"#f6f3ec", paper2:"#ece7dc", paper3:"#dcd5c5", ink:"#1f1d1a", ink2:"#4f4a44", ink3:"#7e7770" },
+    ivory: { paper:"#fbf7ee", paper2:"#f1ead8", paper3:"#e1d9c1", ink:"#23201b", ink2:"#52493d", ink3:"#867c6d" },
+  };
+  const p = papers[t.paper] || papers.warm;
+  r.style.setProperty('--paper', p.paper);
+  r.style.setProperty('--paper-2', p.paper2);
+  r.style.setProperty('--paper-3', p.paper3);
+  r.style.setProperty('--ink', p.ink);
+  r.style.setProperty('--ink-2', p.ink2);
+  r.style.setProperty('--ink-3', p.ink3);
+
+  // font
+  const fonts = {
+    fraunces:  "'Fraunces', Georgia, serif",
+    playfair:  "'Playfair Display', Georgia, serif",
+    dm:        "'DM Serif Display', Georgia, serif",
+    cormorant: "'Cormorant Garamond', Georgia, serif",
+  };
+  r.style.setProperty('--serif', fonts[t.font] || fonts.fraunces);
+
+  // wire DNA — toggles a body class
+  document.body.classList.remove('wire-0','wire-1','wire-2');
+  document.body.classList.add('wire-' + t.wire);
+
+  // reflect UI
+  document.querySelectorAll('#swAccent .sw').forEach(s=>s.classList.toggle('active', s.dataset.c===t.accent));
+  document.querySelectorAll('#paperSeg button').forEach(b=>b.classList.toggle('active', b.dataset.p===t.paper));
+  document.getElementById('fontSel').value = t.font;
+  document.querySelectorAll('#wireSeg button').forEach(b=>b.classList.toggle('active', b.dataset.w===t.wire));
+}
+applyTweaks(TWEAKS);
+
+function persist(partial){
+  Object.assign(TWEAKS, partial);
+  try{window.parent.postMessage({type:'__edit_mode_set_keys', edits: partial}, '*');}catch(e){}
+  applyTweaks(TWEAKS);
+}
+
+document.querySelectorAll('#swAccent .sw').forEach(s=>s.onclick=()=>persist({accent:s.dataset.c}));
+document.querySelectorAll('#paperSeg button').forEach(b=>b.onclick=()=>persist({paper:b.dataset.p}));
+document.getElementById('fontSel').onchange = e=>persist({font:e.target.value});
+document.querySelectorAll('#wireSeg button').forEach(b=>b.onclick=()=>persist({wire:b.dataset.w}));
+
+// Edit-mode handshake
+window.addEventListener('message', (ev)=>{
+  const d = ev.data || {};
+  if(d.type === '__activate_edit_mode')   document.getElementById('tweaks').classList.add('on');
+  if(d.type === '__deactivate_edit_mode') document.getElementById('tweaks').classList.remove('on');
+});
+document.getElementById('tweaksClose').onclick = ()=>{
+  document.getElementById('tweaks').classList.remove('on');
+  try{ window.parent.postMessage({type:'__edit_mode_dismissed'}, '*'); }catch(e){}
+};
+try{ window.parent.postMessage({type:'__edit_mode_available'}, '*'); }catch(e){}
+</script>
+
+<style>
+/* Wire DNA modes */
+.wire-0 .B-callout, .wire-0 .scribble, .wire-0 .C-blueprint .annot { display:none !important; }
+.wire-0 .C-wrap::before { display:none !important; }
+.wire-0 .C-blueprint .grid-bg { opacity:0.3; }
+.wire-2 .scribble { font-size:24px !important; }
+.wire-2 .B-callout { font-size:24px !important; }
+</style>
+
+</body>
+</html>

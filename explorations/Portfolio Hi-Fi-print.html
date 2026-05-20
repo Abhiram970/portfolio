@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Portfolio · Hi-Fi Directions (Print)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Caveat:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="portfolio-hifi/styles.css">
+
+<style>
+/* Print-optimized overrides */
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+html, body {
+  background: var(--paper);
+}
+
+/* Hide the topbar tabs in print */
+.topbar { display: none !important; }
+#tweaks { display: none !important; }
+
+/* Each direction on its own page sequence */
+.print-page {
+  display: block !important;
+  break-before: page;
+  page-break-before: always;
+  width: 100%;
+}
+.print-page:first-of-type {
+  break-before: auto;
+  page-break-before: auto;
+}
+
+/* Section header before each direction */
+.section-cover {
+  break-before: page;
+  page-break-before: always;
+  min-height: 60vh;
+  padding: 80px 60px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.section-cover:first-of-type {
+  break-before: auto;
+  page-break-before: auto;
+}
+.section-cover .label {
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--ink-2);
+  margin-bottom: 18px;
+}
+.section-cover h1 {
+  font-family: var(--serif);
+  font-size: 88px;
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin: 0 0 24px;
+}
+.section-cover h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+.section-cover p {
+  font-size: 17px;
+  line-height: 1.55;
+  max-width: 600px;
+  color: var(--ink-2);
+  margin: 0;
+}
+
+/* Avoid breaking key components mid-page */
+.A-hero, .A-product, .A-testi .frame, .A-pillars .pillar,
+.B-hero, .B-callout, .B-strip .now,
+.C-hero, .C-blueprint, .C-grid .card,
+.D-cover, .D-spec, .D-pull, .D-end .order,
+.A-products .card, .A-specialty .item {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Disable animations and motion in print */
+*, *::before, *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Ensure marquee tracks are static, not mid-scroll */
+.A-marquee .track, .C-strip .track {
+  transform: none !important;
+}
+
+/* Force colors to print */
+@media print {
+  html, body, .A-wrap, .B-wrap, .C-wrap, .D-wrap,
+  .A-nav, .A-hero, .A-marquee, .A-section, .A-specialty, .A-testi, .A-pillars, .A-footer,
+  .B-nav, .B-hero, .B-features, .B-work, .B-strip, .B-foot,
+  .C-nav, .C-hero, .C-strip, .C-work,
+  .D-nav, .D-cover, .D-toc, .D-spec, .D-pull, .D-end, .D-foot,
+  .section-cover, .A-products .card, .A-specialty .item, .C-grid .card {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  /* tighten very large hero type so it doesn't push content off page */
+  .A-hero .lead h2, .B-hero h2, .C-hero h2, .D-cover h2 {
+    font-size: 64px !important;
+    line-height: 0.95 !important;
+  }
+  .section-cover h1 {
+    font-size: 72px !important;
+  }
+  /* compact some long sections */
+  .A-section, .A-specialty, .A-testi, .A-pillars, .A-footer,
+  .B-hero, .B-features, .B-work, .B-strip, .B-foot,
+  .C-hero, .C-work,
+  .D-cover, .D-toc, .D-spec, .D-pull, .D-end {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  /* hide cursor blink */
+  .cursor { display: none !important; }
+}
+
+/* Always show all directions — no tab switching */
+.page { display: block !important; }
+</style>
+</head>
+<body>
+
+<main id="root"></main>
+
+<!-- React + Babel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="portfolio-hifi/data.js"></script>
+<script type="text/babel" src="portfolio-hifi/DirectionA.jsx"></script>
+<script type="text/babel" src="portfolio-hifi/DirectionB.jsx"></script>
+<script type="text/babel" src="portfolio-hifi/DirectionC.jsx"></script>
+<script type="text/babel" src="portfolio-hifi/DirectionD.jsx"></script>
+
+<script type="text/babel">
+function PrintApp(){
+  return (
+    <div>
+      <section className="section-cover">
+        <span className="label">— Volume I · Direction A</span>
+        <h1>The <em>Roastery</em>.</h1>
+        <p>A faithful homage to coffee-tech's editorial craft. Dark espresso hero, copper accent, "product shot" data-viz, testimonials carousel, three-pillar approach.</p>
+      </section>
+      <div className="print-page"><window.DirectionA/></div>
+
+      <section className="section-cover">
+        <span className="label">— Volume II · Direction B</span>
+        <h1>The <em>Atelier</em>.</h1>
+        <p>Light cream editorial. Witty hero copy, a magazine-style work index, and a live "now" widget. The most readable, the most personal.</p>
+      </section>
+      <div className="print-page"><window.DirectionB/></div>
+
+      <section className="section-cover">
+        <span className="label">— Volume III · Direction C</span>
+        <h1>The <em>Workshop</em>.</h1>
+        <p>Strongest wireframe DNA. Blueprint hero with handwritten annotations, filterable catalog grid, three principles laid out like a workbook.</p>
+      </section>
+      <div className="print-page"><window.DirectionC/></div>
+
+      <section className="section-cover">
+        <span className="label">— Volume IV · Direction D</span>
+        <h1>The <em>Catalog</em>.</h1>
+        <p>Annual product catalog hybrid. Cover page, table of contents, alternating spec sheets per project, pull quotes, sample order form. Most catalog-faithful.</p>
+      </section>
+      <div className="print-page"><window.DirectionD/></div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<PrintApp/>);
+
+// Auto-print after fonts and components are ready
+(async () => {
+  try { if (document.fonts && document.fonts.ready) { await document.fonts.ready; } } catch(e){}
+  // Wait for Babel + React render
+  await new Promise(r => setTimeout(r, 1200));
+  // Extra safety
+  await new Promise(r => setTimeout(r, 500));
+  window.print();
+})();
+</script>
+
+</body>
+</html>

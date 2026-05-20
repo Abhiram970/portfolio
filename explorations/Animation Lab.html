@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Animation Lab — AI Engineer × Strategy Consultant</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="animation-lab/styles.css">
+<link rel="stylesheet" href="animation-lab/samples.css">
+</head>
+<body>
+
+<header class="lab-top">
+  <div class="logo">animation <em>lab</em></div>
+  <div class="meta">// 6 samples · three.js + anime.js</div>
+  <div class="grow"></div>
+  <div class="cred"><span class="dot"></span> live</div>
+</header>
+
+<nav class="lab-tabs" id="tabs">
+  <button class="lab-tab active" data-i="0"><span class="num">01</span> Neural Bloom</button>
+  <button class="lab-tab" data-i="1"><span class="num">02</span> Attention Map</button>
+  <button class="lab-tab" data-i="2"><span class="num">03</span> Strategy Compass</button>
+  <button class="lab-tab" data-i="3"><span class="num">04</span> ETL Pipeline</button>
+  <button class="lab-tab" data-i="4"><span class="num">05</span> Code → Insight</button>
+  <button class="lab-tab" data-i="5"><span class="num">06</span> Decision Matrix</button>
+</nav>
+
+<main class="lab-stage lab-corners">
+  <span class="tl"></span><span class="tr"></span>
+
+  <div class="scene" id="scene-1" data-screen-label="01 Neural Bloom" style="display:block"></div>
+  <div class="scene" id="scene-2" data-screen-label="02 Attention Map" style="display:none"></div>
+  <div class="scene" id="scene-3" data-screen-label="03 Strategy Compass" style="display:none"></div>
+  <div class="scene" id="scene-4" data-screen-label="04 ETL Pipeline" style="display:none"></div>
+  <div class="scene" id="scene-5" data-screen-label="05 Code → Insight" style="display:none"></div>
+  <div class="scene" id="scene-6" data-screen-label="06 Decision Matrix" style="display:none"></div>
+
+  <div class="lab-caption" id="caption">
+    <span class="eyebrow">Sample 01 · three.js + anime.js</span>
+    <h2>Neural <em>bloom</em>.</h2>
+    <p>A living MLP. Forward passes light up node-by-node, layer-by-layer; signals travel along the edges. Move your cursor to tilt.</p>
+    <div class="hint">
+      <button class="btn-ghost primary" id="s1-btn">▶ Trigger forward pass</button>
+    </div>
+  </div>
+
+  <div class="scene-hint">
+    <span><kbd>←</kbd> <kbd>→</kbd> tabs</span>
+    <span>cursor = parallax</span>
+  </div>
+</main>
+
+<footer class="lab-foot">
+  <span>// Lab · samples for an AI engineer / strategy consultant</span>
+  <span class="grow"></span>
+  <span>three.js r158 · anime.js v3 · ~ vibes ~</span>
+</footer>
+
+<!-- Captions for each sample -->
+<script type="application/json" id="captions">
+[
+  { "eyebrow":"Sample 01 · three.js + anime.js", "title":"Neural <em>bloom</em>.", "body":"A living MLP. Forward passes light up node-by-node, layer-by-layer; signals travel along the edges. Move your cursor to tilt.", "hint":"<button class=\"btn-ghost primary\" id=\"s1-btn\">▶ Trigger forward pass</button>" },
+  { "eyebrow":"Sample 02 · anime.js + SVG", "title":"<em>Attention</em>, animated.", "body":"Self-attention rendered as living curves between query and key tokens. Hover any top token — the matrix rebalances around it.", "hint":"hover the top tokens" },
+  { "eyebrow":"Sample 03 · three.js", "title":"Strategy <em>compass</em>.", "body":"A 3D radar of decisions. Each node = a choice; pillar height = weight. Cursor tilts the disc; click any node for a ripple.", "hint":"hover · click nodes" },
+  { "eyebrow":"Sample 04 · anime.js motion path", "title":"<em>Pipeline</em>, in motion.", "body":"From raw data to boardroom insight. Droplets fan out through preprocess, embed, model, and eval — converging to one decision.", "hint":"watch it loop · ~4.5s cadence" },
+  { "eyebrow":"Sample 05 · anime.js stagger", "title":"Code → <em>insight</em>.", "body":"Same idea, three rooms. Code ↔ business memo ↔ decision log. Characters scramble between states with stagger physics.", "hint":"click a state · auto-cycles" },
+  { "eyebrow":"Sample 06 · drag + spring", "title":"Decision <em>matrix</em>.", "body":"A live 2x2. Drag any initiative — the verdict rewrites itself by quadrant. Spring physics on release.", "hint":"drag the cards" }
+]
+</script>
+
+<!-- Speaker notes (none, but keeping protocol clean) -->
+
+<!-- Libs -->
+<script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+<script src="https://unpkg.com/animejs@3.2.2/lib/anime.min.js"></script>
+
+<!-- Tab switching -->
+<script>
+(function(){
+  const tabs = document.querySelectorAll('.lab-tab');
+  const scenes = document.querySelectorAll('.scene');
+  const caps = JSON.parse(document.getElementById('captions').textContent);
+  const cap = document.getElementById('caption');
+
+  function show(i){
+    tabs.forEach((t, k)=> t.classList.toggle('active', k===i));
+    scenes.forEach((s, k)=> s.style.display = k===i ? 'block' : 'none');
+    const c = caps[i];
+    cap.innerHTML = `
+      <span class="eyebrow">${c.eyebrow}</span>
+      <h2>${c.title}</h2>
+      <p>${c.body}</p>
+      <div class="hint">${c.hint}</div>
+    `;
+    // Trigger window resize so any canvases re-fit
+    window.dispatchEvent(new Event('resize'));
+    // If sample 1 button got rebuilt, re-bind
+    const s1btn = document.getElementById('s1-btn');
+    if(s1btn && window.__s1Forward){
+      s1btn.addEventListener('click', window.__s1Forward);
+    }
+  }
+  tabs.forEach((t,i)=> t.addEventListener('click', ()=> show(i)));
+  document.addEventListener('keydown', e=>{
+    const cur = [...tabs].findIndex(t=> t.classList.contains('active'));
+    if(e.key === 'ArrowRight') show((cur+1) % tabs.length);
+    if(e.key === 'ArrowLeft')  show((cur-1+tabs.length) % tabs.length);
+  });
+  window.__labShow = show;
+})();
+</script>
+
+<!-- Samples -->
+<script src="animation-lab/sample1-neural.js"></script>
+<script src="animation-lab/sample2-attention.js"></script>
+<script src="animation-lab/sample3-compass.js"></script>
+<script src="animation-lab/sample4-pipeline.js"></script>
+<script src="animation-lab/sample5-typemorph.js"></script>
+<script src="animation-lab/sample6-matrix.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+/* Soul module styles — interactive moving elements */
+
+/* Constellation canvas */
+.soul-constellation{
+  position:absolute; inset:0;
+  display:block;
+  cursor: crosshair;
+}
+
+/* Mesmerizing waves background on "What I work on" */
+.soul-waves-host{ position:relative; }
+.soul-waves-host > *:not(.soul-waves){ position:relative; z-index:2; }
+.soul-waves{
+  position:absolute !important; inset:0;
+  z-index:1;
+  pointer-events:none;
+  opacity:.85;
+  mix-blend-mode: screen;
+}
+
+/* Spotlight on A product */
+.A-product{ position:relative; }
+.soul-spot{
+  position:absolute; inset:0; pointer-events:none;
+  transition: background .15s ease;
+  mix-blend-mode: screen;
+}
+
+/* Coffee rings */
+.soul-ring{
+  position:absolute; pointer-events:auto;
+  cursor:grab;
+  z-index:5;
+  animation: ring-float 9s ease-in-out infinite;
+  will-change:transform;
+}
+.soul-ring svg{ width:100%; height:100%; }
+@keyframes ring-float{
+  0%,100%{ translate:0 0; }
+  50%    { translate:6px -8px; }
+}
+.soul-ring.grab{ cursor:grabbing; animation:none; }
+
+/* Post-it */
+.soul-postit{
+  position:absolute; z-index:5;
+  width:140px; min-height:140px;
+  background: color-mix(in srgb, var(--accent) 70%, #fff5b8 30%);
+  border:1px solid var(--ink);
+  padding:18px 14px 14px;
+  font-family:var(--hand); font-size:18px; font-weight:600;
+  color:var(--ink); line-height:1.25;
+  box-shadow: 4px 6px 14px rgba(42,31,23,0.18);
+  cursor:grab;
+  transition: transform .2s ease;
+}
+.soul-postit:hover{ transform:rotate(2deg) scale(1.04) !important; }
+.soul-postit.grab{ cursor:grabbing; transition:none; }
+.soul-postit .pin{
+  position:absolute; top:-6px; left:50%; transform:translateX(-50%);
+  width:14px; height:14px; border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, var(--accent-2,#a84818), #5a1f0a);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Blueprint sticky annotation */
+.soul-bp-note{
+  position:absolute; z-index:5;
+  background:var(--paper);
+  border:1.5px dashed var(--ink-3);
+  padding:6px 10px;
+  font-family:var(--hand); font-size:18px; color:var(--accent);
+  cursor:grab;
+  display:flex; align-items:center; gap:6px;
+  transition: transform .15s ease;
+}
+.soul-bp-note:hover{ transform: rotate(-2deg) scale(1.05); }
+.soul-bp-note.grab{ cursor:grabbing; }
+
+/* Page corner peel on D */
+.soul-peel{
+  position:fixed;
+  bottom:0; right:0;
+  width:80px; height:80px;
+  z-index:8;
+  cursor:pointer;
+  transition: width .35s ease, height .35s ease;
+  background:
+    linear-gradient(135deg, transparent 50%, var(--paper-2) 50%, var(--paper-3) 90%);
+  border-top:1px solid var(--ink-3);
+  border-left:1px solid var(--ink-3);
+  box-shadow: -3px -3px 8px rgba(42,31,23,0.12);
+}
+.soul-peel:hover{ width:160px; height:160px; }
+.soul-peel .hint{
+  position:absolute;
+  bottom:14px; right:14px;
+  font-family:var(--mono); font-size:10px;
+  color:var(--ink-2);
+  text-transform:uppercase; letter-spacing:.06em;
+  opacity:0; transition: opacity .3s .1s ease;
+  transform: rotate(-45deg);
+}
+.soul-peel:hover .hint{ opacity:1; }
+
+/* Confetti */
+.soul-confetti{
+  position:fixed;
+  width:8px; height:8px;
+  pointer-events:none;
+  z-index:9500;
+  border:1px solid var(--ink);
+  animation: confetti-pop .9s cubic-bezier(.22,.61,.36,1) forwards;
+  --dx:0px; --dy:0px;
+}
+@keyframes confetti-pop{
+  0%   { transform:translate(-50%,-50%) scale(.3) rotate(0deg); opacity:0; }
+  20%  { opacity:1; }
+  100% { transform:translate(calc(-50% + var(--dx)), calc(-50% + var(--dy) + 80px)) scale(1) rotate(360deg); opacity:0; }
+}
+
+/* Hide all soul elements when print */
+@media print{
+  .soul-constellation, .soul-waves, .soul-ring, .soul-postit,
+  .soul-bp-note, .soul-peel, .soul-confetti { display:none !important; }
+}
+
+/* Hint label across all directions */
+.soul-hint{
+  position:fixed; bottom:16px; left:18px; z-index:50;
+  font-family:var(--hand); font-size:18px;
+  color:var(--ink-2);
+  background:var(--paper);
+  border:1px dashed var(--ink-3);
+  padding:6px 12px;
+  pointer-events:none;
+  opacity:0; transform:translateY(8px);
+  transition: opacity .4s, transform .4s;
+}
+.soul-hint.on{ opacity:1; transform:translateY(0); }
+.soul-hint::before{ content:"※ "; color:var(--accent); }
