@@ -104,7 +104,7 @@ html, body {
   animation: pulse 1.6s ease-in-out infinite;
   box-shadow: 0 0 10px var(--accent);
 }
-.mk-nav .nav-links { display: flex; gap: 20px; }
+.mk-nav .nav-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: flex-end; }
 .mk-nav .nav-links a {
   color: color-mix(in srgb, var(--fg) 55%, transparent);
   text-decoration: none;
@@ -112,6 +112,12 @@ html, body {
 }
 .mk-nav .nav-links a:hover { color: var(--fg); }
 .mk-nav .nav-links a b { color: var(--fg); font-weight: 500; margin-right: 6px; }
+
+@media (max-width: 720px) {
+  .mk-nav { padding: 12px 18px; font-size: 10px; letter-spacing: 0.12em; }
+  .mk-nav .nav-links { display: none; }
+  .mk-nav .nav-left { font-size: 10px; }
+}
 
 /* sections */
 .mk-section {
@@ -434,7 +440,14 @@ html, body {
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--fg) 55%, transparent);
+  color: color-mix(in srgb, var(--fg) 65%, transparent);
+  background: color-mix(in srgb, var(--bg) 75%, transparent);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 4px 8px;
+  z-index: 3;
+  pointer-events: none;
+  white-space: nowrap;
 }
 .scatter-stage .axis-label.x-low { bottom: 12px; left: 12px; }
 .scatter-stage .axis-label.x-high { bottom: 12px; right: 12px; }
@@ -448,6 +461,14 @@ html, body {
   transform: translate(-50%, -50%);
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--fg) 20%, transparent);
   transition: box-shadow .2s;
+  width: var(--dot-d, 24px);
+  height: var(--dot-d, 24px);
+}
+@media (max-width: 640px) {
+  .skill-dot {
+    width: var(--dot-m, 16px);
+    height: var(--dot-m, 16px);
+  }
 }
 .skill-dot:hover, .skill-dot.dragging {
   box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent);
@@ -980,8 +1001,24 @@ html, body {
 }
 
 @media (max-width: 700px) {
-  .color-dock { left: 8px; width: 44px; }
-  .color-dock.is-open { width: calc(100vw - 24px); }
+  .color-dock {
+    left: auto;
+    right: 12px;
+    bottom: 12px;
+    top: auto;
+    transform: none;
+    width: 40px;
+    padding: 6px;
+    background: color-mix(in srgb, #0d0f13 92%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .color-dock.is-open {
+    width: min(280px, calc(100vw - 24px));
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  .color-dock .dock-toggle .ico { width: 18px; height: 18px; }
 }
 
 .timeline {

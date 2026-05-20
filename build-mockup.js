@@ -95,10 +95,11 @@ window.buildMockup = function buildMockup(id, num, codename) {
         <span class="axis-label y-low">↓ RESEARCH</span>
         <span class="axis-label y-high">↑ PRODUCTION</span>
         ${D.skills.map((s, i) => {
-          const size = 14 + s.p * 36;
+          const sizePx = 14 + s.p * 36;
+          const sizeMobile = 10 + s.p * 18;
           return `<div class="skill-dot" data-secondary="${s.secondary}"
                        data-x="${s.x}" data-y="${s.y}" data-i="${i}"
-                       style="left:${s.x*100}%;top:${(1-s.y)*100}%;width:${size}px;height:${size}px;">
+                       style="left:${s.x*100}%;top:${(1-s.y)*100}%;--dot-d:${sizePx}px;--dot-m:${sizeMobile}px;">
                     <span class="label">${s.name}</span>
                   </div>`;
         }).join("")}
