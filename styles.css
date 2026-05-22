@@ -794,6 +794,140 @@ html, body {
   pointer-events: none;
 }
 
+/* ============================================================
+   F1 ERA TIMELINE — MOBILE (Option C: tabbed eras)
+   Activates on phones and small tablets. Restructures the
+   carousel into a tabs-on-top + stacked card layout, so the
+   photo and body no longer overlap and the scrubber arrows /
+   handle / floating year don't fight a narrow viewport.
+   ============================================================ */
+@media (max-width: 640px) {
+  /* Put the scrubber (now tabs) above the stage */
+  .timeline-section { display: flex; flex-direction: column; }
+  .timeline-section > .eyebrow { order: 0; }
+  .timeline-section > .era-scrub { order: 1; margin: 0 0 14px; padding: 0; }
+  .timeline-section > .era-stage { order: 2; }
+  .timeline-section > .tl-detail-list { order: 3; }
+  .timeline-section > .cv-download-row { order: 4; }
+
+  /* Hide desktop-only chrome */
+  .era-year-roll,
+  .era-arrow,
+  .era-handle,
+  .era-fill { display: none; }
+
+  /* Scrubber → segmented tab bar */
+  .era-track {
+    height: auto;
+    border: 1px solid color-mix(in srgb, var(--fg) 14%, transparent);
+    border-radius: 10px;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--bg) 50%, transparent);
+  }
+  .era-track::before { display: none; }
+  .era-tick {
+    height: 56px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: color-mix(in srgb, var(--fg) 55%, transparent);
+    border-right: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
+    background: transparent;
+    transition: background .2s, color .2s;
+  }
+  .era-tick:last-child { border-right: none; }
+  .era-tick::before { display: none; }
+  .era-tick > span:first-child {
+    position: static;
+    transform: none;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 700;
+    color: inherit;
+    letter-spacing: 0.04em;
+  }
+  .era-tick .tick-label {
+    position: static;
+    transform: none;
+    font-size: 9.5px;
+    opacity: 0.6;
+  }
+  .era-tick.is-active {
+    background: color-mix(in srgb, var(--fg) 6%, transparent);
+    color: var(--fg);
+    box-shadow: none;
+  }
+  .era-tick.is-active > span:first-child { color: var(--accent); }
+  .era-tick.is-active .tick-label { color: var(--accent); opacity: 1; }
+
+  /* Stage → static card; only active era takes flow */
+  .era-stage {
+    min-height: 0;
+    aspect-ratio: auto;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .era-cards { position: static; }
+  .era-card {
+    position: static;
+    inset: auto;
+    opacity: 1;
+    pointer-events: auto;
+    display: none;
+    transition: none;
+  }
+  .era-card.is-active { display: block; }
+
+  /* Photo on top, body below — no more overlap */
+  .era-photo {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+  .era-photo img {
+    transform: none;
+    filter: saturate(0.85) contrast(1.05) brightness(0.85);
+  }
+  .era-card.is-active .era-photo img { transform: none; }
+  .era-photo-grade { display: none; }
+
+  .era-body {
+    position: static;
+    inset: auto;
+    padding: 14px 14px 16px;
+    display: block;
+  }
+  .era-meta {
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    margin-bottom: 10px;
+  }
+  .era-meta b { font-size: 11px; margin-right: 6px; }
+  .era-team {
+    padding: 4px 8px;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+  }
+  .era-role {
+    font-size: 20px;
+    line-height: 1.15;
+    margin: 0 0 8px;
+    max-width: none;
+    align-self: auto;
+  }
+  .era-note {
+    font-size: 11px;
+    line-height: 1.55;
+    margin-top: 0;
+    max-width: none;
+  }
+}
+
 /* cv download button */
 .cv-download-row {
   margin-top: 36px;
