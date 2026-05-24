@@ -75,7 +75,129 @@
 </head>
 <body>
 
-<div id="mockups"></div>
+<div id="mockups"><div class="seo-prerender" aria-hidden="true" style="position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden">
+  <h1>PV Abhiram &mdash; Data Analyst and Machine Learning Engineer</h1>
+  <p>From research to production &mdash; I build ML systems that work in the real world.</p>
+  <p>Data analyst at Novartis Healthcare and ML researcher based in Hyderabad, India. I work across the full stack &mdash; from CUDA kernels and transformer architectures to CRM platforms and business analytics. BTech CSE (AI &amp; ML), Vellore Institute of Technology Chennai, CGPA 8.78. Open to roles.</p>
+
+  <h2>Projects</h2>
+
+  <article>
+    <h3>CLIP-to-EdgeNeXt Distillation</h3>
+    <p>Distilled CLIP ViT-B/16 into EdgeNeXt-XX-Small (approximately 66x compression) for on-device crop disease detection across 38 disease classes. 3-stage curriculum with a text-prototype-anchored distillation loss. Targets real-world inference on resource-constrained agricultural hardware.</p>
+    <p>Stack: CLIP, PyTorch, Edge AI, Knowledge Distillation.</p>
+  </article>
+
+  <article>
+    <h3>Neurosymbolic AI: Beyond LLM-to-Solver Pipelines</h3>
+    <p>Co-authored position paper arguing translation &mdash; not symbolic inference &mdash; is the bottleneck in LLM+solver systems. Evidence from an 85-paper review, multi-scale probing of GPT-2 and DistilBERT, and Phi-2 and Qwen2.5-3B benchmarks on FOLIO with the Z3 SMT solver.</p>
+    <p>Stack: Position Paper, GPT-2, Phi-2, FOLIO, Z3 SMT.</p>
+  </article>
+
+  <article>
+    <h3>Adaptive Depth Transformer</h3>
+    <p>Decoder-only transformer that allocates compute per-token via representational convergence gating &mdash; simple tokens early-exit, complex ones run full depth. 29% FLOPs reduction with matched perplexity on WikiText-103 across 13 architectural patches.</p>
+    <p>Stack: PyTorch, Transformers, NLP.</p>
+  </article>
+
+  <article>
+    <h3>Multilingual Bixby Capsule (Samsung R&amp;D)</h3>
+    <p>Led design and integration of Meta's NLLB model into a Bixby capsule for auto-detection and translation across 200+ languages at 98% accuracy. Hosted via Docker and Hugging Face during Samsung R&amp;D internship. First author on findings published on arXiv (<a href="https://arxiv.org/abs/2403.05982">arXiv:2403.05982</a>).</p>
+    <p>Stack: NLLB, Docker, Hugging Face, Bixby.</p>
+  </article>
+
+  <article>
+    <h3>LLM BI Assistant</h3>
+    <p>Natural-language analytics agent over business databases. Ask a question in plain English, get SQL, a chart, and a narrative summary in one shot. RAG retrieval over schema docs keeps hallucinations near zero.</p>
+    <p>Stack: LangChain, RAG, FastAPI, GPT-4o, Plotly.</p>
+  </article>
+
+  <article>
+    <h3>Clinical Doc Processor</h3>
+    <p>Multi-agent LLM pipeline for pharma document intelligence &mdash; adverse-event extraction, compliance checks, and structured CRUD summaries from unstructured visit notes and Vault documents. Built around real pain points from the Novartis CRM workflow.</p>
+    <p>Stack: LLM Agents, Python, Pharma, NLP.</p>
+  </article>
+
+  <article>
+    <h3>Time-Series Forecast API</h3>
+    <p>Production forecasting service using PatchTST for demand and KPI prediction. Exposes a REST endpoint: upload a CSV, get back forecasts with confidence bands and anomaly flags. Packaged with MLflow tracking and Docker-compose deployment.</p>
+    <p>Stack: PatchTST, MLflow, FastAPI, Docker.</p>
+  </article>
+
+  <h2>Experience</h2>
+
+  <article>
+    <h3>Associate Data Analyst &mdash; Novartis Healthcare (2024 &mdash; present)</h3>
+    <ul>
+      <li>Driving analytics for the Pelacarsen launch &mdash; defining the target HCO/HCP universe, optimising field force structure and cost, and analysing patient and market dynamics to inform go-to-market and commercial planning.</li>
+      <li>Designed a multi-source data validation framework (CRM, external APIs, NLP classification) that classified 90% of previously-unknown pediatric HCP addresses, improved targeting coverage by 75%, mitigated $10M in regulatory risk and saved $100K in vendor costs.</li>
+      <li>Partnered on the ZAIDYN Field Deployment rollout with ZS Associates &mdash; owned KPI design, BRD translation, system integration, testing and validation; delivered $300K in annual savings via an in-house TechOps transition.</li>
+    </ul>
+  </article>
+
+  <article>
+    <h3>Data Science Intern &mdash; Vivriti Capital (Jan 2024 &mdash; Jul 2024)</h3>
+    <ul>
+      <li>Built an end-to-end pipeline to extract and analyse 10,000+ credit reports from CRISIL, ICRA, CARE Ratings and India Ratings &mdash; NLP to lift P&amp;L items, credit ratings and key financial metrics into standardised summaries for investment-lead screening at previously-infeasible scale.</li>
+      <li>Developed an ML-powered KYC solution combining biometric matching between live customer photos and government IDs with OCR-based cross-validation of portal-entered data against PAN card information.</li>
+    </ul>
+  </article>
+
+  <article>
+    <h3>R&amp;D Intern &mdash; Samsung R&amp;D Institute India (Dec 2022 &mdash; Jul 2023)</h3>
+    <ul>
+      <li>Designed API systems for a Bixby capsule with auto-detection and translation across 200+ languages at 98% accuracy.</li>
+      <li>Integrated the NLLB model via Docker and Hugging Face. First author on findings published on arXiv (<a href="https://arxiv.org/abs/2403.05982">arXiv:2403.05982</a>).</li>
+    </ul>
+  </article>
+
+  <article>
+    <h3>BTech CSE with AI &amp; ML &mdash; Vellore Institute of Technology, Chennai (2020 &mdash; 2024)</h3>
+    <ul>
+      <li>CGPA 8.78.</li>
+      <li>Specialisation in Artificial Intelligence and Machine Learning.</li>
+    </ul>
+  </article>
+
+  <h2>Skills</h2>
+
+  <h3>ML and Research</h3>
+  <p>PyTorch, TensorFlow, Keras, Scikit-learn, Hugging Face Transformers, Deep Learning, NLP, Computer Vision.</p>
+
+  <h3>Systems</h3>
+  <p>Python, C++, Docker, PySpark, CUDA.</p>
+
+  <h3>Data and Analytics</h3>
+  <p>SQL, MySQL, PostgreSQL, Snowflake, FAISS, DataIKU DSS, Alteryx, Power BI.</p>
+
+  <h3>Engineering</h3>
+  <p>JavaScript, Data Structures and Algorithms, Object-Oriented Programming, Statistical Modeling.</p>
+
+  <h3>Business and Strategy</h3>
+  <p>Stakeholder Management, Business Requirement Structuring, Solution Design, KPI-driven Decision Making, Salesforce.</p>
+
+  <h2>Contact</h2>
+  <p>Building something at the intersection of ML and production? Let's talk.</p>
+  <ul>
+    <li>Email: <a href="mailto:abhiramp428@gmail.com">abhiramp428@gmail.com</a></li>
+    <li>LinkedIn: <a href="https://www.linkedin.com/in/pvabhiram/">linkedin.com/in/pvabhiram</a></li>
+    <li>GitHub: <a href="https://github.com/Abhiram970">github.com/Abhiram970</a></li>
+    <li>CV / Resume: <a href="https://www.pv-abhiram.in/PV_Abhiram%20Resume.pdf">Download PDF</a></li>
+    <li>Publications: <a href="https://arxiv.org/abs/2403.05982">arXiv:2403.05982 &mdash; multilingual translation, Samsung R&amp;D</a></li>
+  </ul>
+</div></div>
+
+<noscript>
+  <div style="max-width:760px;margin:40px auto;padding:24px;font-family:sans-serif;color:#F4F4F6;background:#0A0A0C;line-height:1.6">
+    <h1 style="font-family:serif">PV Abhiram</h1>
+    <p>Data Analyst at Novartis Healthcare and Machine Learning Engineer based in Hyderabad. This portfolio uses JavaScript for an interactive experience. The static highlights:</p>
+    <ul>
+      <li>Email: <a href="mailto:abhiramp428@gmail.com" style="color:#7B8C7A">abhiramp428@gmail.com</a></li>
+      <li><a href="https://www.linkedin.com/in/pvabhiram/" style="color:#7B8C7A">LinkedIn</a> &middot; <a href="https://github.com/Abhiram970" style="color:#7B8C7A">GitHub</a> &middot; <a href="https://www.pv-abhiram.in/PV_Abhiram%20Resume.pdf" style="color:#7B8C7A">Download CV</a></li>
+      <li>Publication: <a href="https://arxiv.org/abs/2403.05982" style="color:#7B8C7A">arXiv:2403.05982</a></li>
+    </ul>
+  </div>
+</noscript>
 
 <script src="data.js"></script>
 <script src="mini-svgs.js"></script>
@@ -89,6 +211,7 @@
 
 <script type="module">
   const host = document.getElementById("mockups");
+  host.replaceChildren();
   const node = window.buildMockup(1, 1, "PORTFOLIO");
   host.appendChild(node);
 
