@@ -123,7 +123,7 @@ window.buildMockup = function buildMockup(id, num, codename) {
   const eraCardsHTML = ERAS.map((e, i) => `
     <article class="era-card ${i===0?'is-active':''}" data-era="${i}">
       <div class="era-photo">
-        <img src="${e.img}" alt="" loading="lazy" referrerpolicy="no-referrer">
+        <img src="${e.img}" alt="${e.label} era visual — ${e.role} at ${e.team}, ${e.year}" loading="lazy" referrerpolicy="no-referrer">
         <div class="era-photo-grade"></div>
       </div>
       <div class="era-body">
