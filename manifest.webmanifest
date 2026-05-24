@@ -1,0 +1,16 @@
+{
+  "name": "PV Abhiram — Portfolio",
+  "short_name": "PV Abhiram",
+  "description": "Portfolio of PV Abhiram — Data Analyst and Machine Learning Engineer.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0C",
+  "theme_color": "#0A0A0C",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

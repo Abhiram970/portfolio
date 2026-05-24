@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pv-abhiram.in/sitemap.xml
+Host: https://pv-abhiram.in
