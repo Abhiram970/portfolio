@@ -4,6 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-66Q5VYWCC2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-66Q5VYWCC2', { anonymize_ip: true });
+
+  // Track mailto: clicks (GA4 enhanced measurement does not cover these)
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest && e.target.closest('a[href^="mailto:"]');
+    if (a) gtag('event', 'email_click', { email: a.href.replace('mailto:', '') });
+  });
+</script>
+
 <title>PV Abhiram — Data Analyst & Machine Learning Engineer</title>
 <meta name="description" content="Portfolio of PV Abhiram, a Data Analyst and Machine Learning Engineer at Novartis. Research and projects across Generative AI, NLP, Computer Vision, and Data Science — including a published arXiv paper on multilingual translation with Samsung R&D.">
 <meta name="author" content="PV Abhiram">
